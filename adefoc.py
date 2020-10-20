@@ -176,7 +176,7 @@ class Sisia(unittest.TestCase):
                 f.tiempo(1)
                 f.Click("//*[@id='id_agregar_especie']")
                 driver.implicitly_wait(30)
-                f.tiempo(25)
+                f.tiempo(30)
 
 
             #Tablas
@@ -190,12 +190,14 @@ class Sisia(unittest.TestCase):
             print("Entero: "+ str(tb1_entero))
             print("Tabla: "+ str(tb1))
 
-            for r in range(1, tb1_entero+1):
+            #for r in range(1, tb1_entero+1):
+            for r in range(1, 2):
                 f.Click("//span[@id='tablaAntirrabica__paginador__span__"+str(r)+"']")
                 f.scrolling(-360)
                 f.tiempo(1.5)
 
-                for ch in range(0,15):
+                #for ch in range(0,15):
+                for ch in range(0, 15):
                     raz = random.randint(1, 6)
                     vacc = random.randint(1, 8)
                     print("chec: "+str(ch))
@@ -203,6 +205,22 @@ class Sisia(unittest.TestCase):
                     f.Click("//input[@id='tablaAntirrabica__check__"+str(ch)+"']")
                     f.combo_index("(//select[@id='id_raza'])["+str(ch+1)+"]",str(raz))
                     f.combo_index("(//select[@id='id_vacuna'])["+str(ch+1)+"]",str(vacc))
+
+            #Tabla 2
+            f.scrolling(750)
+            tbl2=f.existe_try_class_name("tablaBOVINO")
+            if tbl2 == "Existe":
+                tbl2 = f.localizar_elemento("cantidadTable__animales__0")
+                tbl2 = f.obtenerTexto_id("cantidadTable__animales__0")
+                print("Base tabla dos: " +str(tbl2))
+                f.tiempo(2)
+                tb2 = float(tbl2)
+                ttb2 = tb2 / 15
+                tb1_t2 = str(ttb2).split(".")
+                tb2_entero = int(tb1_t2[0])
+                print("Tabla dos entero: " +str(tb2_entero))
+
+
 
 
 

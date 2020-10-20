@@ -121,6 +121,14 @@ class Funciones():
             v = "Falso"
         return v
 
+    def existe_try_class_name(self, css):
+        try:
+            self.driver.find_element_by_class_name(css)
+            v = "Existe"
+        except NoSuchElementException:
+            v = "Falso"
+        return v
+
 
     def elemento_enter(self,xpath):
         val=self.driver.find_element_by_xpath(xpath)
