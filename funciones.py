@@ -175,5 +175,12 @@ class Funciones():
         actions.move_to_element(val).perform()
         return val
 
+    def localizar_elemento_css(self, css):
+        val = self.driver.find_element_by_class_name(css)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(val).perform()
+        return val
+
+
 
 
