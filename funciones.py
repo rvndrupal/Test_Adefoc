@@ -169,8 +169,8 @@ class Funciones():
         return val
 
     def combo_index_Ok(self,xpath):
-        ct = self.driver.find_elements_by_xpath(xpath)
-        ct=len(ct)
+        ct = Select(self.driver.find_element_by_xpath(xpath))
+        ct=len(ct.options)
         return ct
 
     def num_animales(self, css):

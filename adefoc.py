@@ -146,12 +146,13 @@ class Sisia(unittest.TestCase):
             f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
             driver.implicitly_wait(20)
             f.scrolling(1000)
+            f.tiempo(5)
 
             #Vacunación
             path = excel
             hoja = "vacunas"
             renv=1
-            casosv=10
+            casosv=4
             rows2 = fe.getRowCount(path, hoja)
             for r in range(renv, rows2 + 1):
                 vacuna = fe.readData(path, hoja, r, 1)
@@ -166,19 +167,20 @@ class Sisia(unittest.TestCase):
                 f.tiempo(.1)
                 if (r == casosv):
                     break
-            f.scrolling(250)
+            f.scrolling(450)
             f.tiempo(2)
             #Alta de las Especies
             ves=f.combo_index_Ok("//select[contains(@id,'especie')]")
             print("Especies Registradas: " +str(ves))
-            for esp  in range(0, ves+1):
-                f.combo_index("//select[contains(@id,'especie')]",1)
-                f.tiempo(1)
+            for esp  in range(1, ves):
+                print("Veces: "+ str(esp))
+                f.combo_index("//select[contains(@id,'especie')]",esp+1)
+                f.tiempo(5)
                 f.Click("//*[@id='id_agregar_especie']")
-                driver.implicitly_wait(30)
-                f.tiempo(30)
+                driver.implicitly_wait(25)
+                f.tiempo(25)
 
-
+            '''
             #Tablas
             tbl1 =f.localizar_elemento("cantidadTable__animales")
             f.tiempo(1)
@@ -201,7 +203,7 @@ class Sisia(unittest.TestCase):
                     raz = random.randint(1, 6)
                     vacc = random.randint(1, 8)
                     print("chec: "+str(ch))
-                    Iden = f.localizar_elemento_css("tablaAntirrabica")
+                    #Iden = f.localizar_elemento_css("tablaAntirrabica")
                     f.Click("//input[@id='tablaAntirrabica__check__"+str(ch)+"']")
                     f.combo_index("(//select[@id='id_raza'])["+str(ch+1)+"]",str(raz))
                     f.combo_index("(//select[@id='id_vacuna'])["+str(ch+1)+"]",str(vacc))
@@ -219,6 +221,24 @@ class Sisia(unittest.TestCase):
                 tb1_t2 = str(ttb2).split(".")
                 tb2_entero = int(tb1_t2[0])
                 print("Tabla dos entero: " +str(tb2_entero))
+
+                #segunda tabla
+                for r in range(1, tb2_entero+1):
+                    f.Click("//span[contains(@id,'tablaAnimalExtra__0__paginador__span__" + str(r) + "')]")
+                    f.scrolling(-360)
+                    f.tiempo(1.5)
+
+                    # for ch in range(0,15):
+                    for ch in range(0, 15):
+                        raz = random.randint(1, 6)
+                        vacc = random.randint(1, 8)
+                        print("chec: " + str(ch))
+                        Iden = f.localizar_elemento_css("tablaAntirrabica")
+                        f.Click("//input[@id='tablaAnimalExtra__0__check__"+ str(ch) + "']")
+                        f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
+                        f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
+            '''
+
 
 
 
