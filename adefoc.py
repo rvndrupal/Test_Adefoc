@@ -337,13 +337,9 @@ class Sisia(unittest.TestCase):
             f.combo_index("(//select[contains(@id,'extra')])[64]",2)
             f.tiempo(4)
 
-
-
-
-
-
-
-
+            #final
+            if (r == casos):
+                break
 
 
 
