@@ -173,12 +173,23 @@ class Funciones():
         ct=len(ct.options)
         return ct
 
+    def combo_index_valor(self, xpath):
+        ct = Select(self.driver.find_element_by_xpath(xpath))
+        ct = ct.value
+        return ct
+
     def num_animales(self, css):
         num=self.driver.find_element_by_class_name(css).text
         return num
 
     def localizar_elemento(self,id):
         val=self.driver.find_element_by_id(id)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(val).perform()
+        return val
+
+    def localizar_elemento_xpath(self,xpath):
+        val=self.driver.find_element_by_xpath(xpath)
         actions = ActionChains(self.driver)
         actions.move_to_element(val).perform()
         return val

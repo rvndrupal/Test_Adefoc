@@ -18,7 +18,7 @@ import string
 
 
 #
-#pytest -v -s --html=report.html --self-contained-html page3.py
+#pytest -v -s --html=report.html --self-contained-html adefoc.py
 
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
@@ -86,7 +86,11 @@ class Sisia(unittest.TestCase):
             f.Click("//a[contains(@id,'unidad')][contains(.,'Registro de solicitud')]")
             f.limpiar("//input[contains(@id,'unidad')]")
             f.tiempo(3)
-            '''
+
+
+
+
+
             f.texto("//input[contains(@id,'unidad')]", clave)
             f.tiempo(1)
             f.Click("//button[contains(@id,'id_buscar_unidad')]")
@@ -122,8 +126,11 @@ class Sisia(unittest.TestCase):
             clave=f.obtenerTexto("/html/body/app-root/app-consulta-unidad/main/div/app-header/div[2]/div/app-global-alert/div")
             clave=clave[53:]
             print("Clave:"+ str(clave))
-            f.tiempo(20)
-            '''
+            f.tiempo(5)
+
+
+
+
 
             #Solicitud
             f.tiempo(2)
@@ -132,7 +139,7 @@ class Sisia(unittest.TestCase):
             f.scrolling(600)
             f.tiempo(2)
             #f.texto("//input[contains(@id,'solicitud')]",clave)
-            f.texto("//input[contains(@id,'solicitud')]","RAB20200000098")
+            f.texto("//input[contains(@id,'solicitud')]",clave)
 
             f.tiempo(2)
             f.scrolling(130)
@@ -152,7 +159,7 @@ class Sisia(unittest.TestCase):
             path = excel
             hoja = "vacunas"
             renv=1
-            casosv=4
+            casosv=10
             rows2 = fe.getRowCount(path, hoja)
             for r in range(renv, rows2 + 1):
                 vacuna = fe.readData(path, hoja, r, 1)
@@ -172,15 +179,28 @@ class Sisia(unittest.TestCase):
             #Alta de las Especies
             ves=f.combo_index_Ok("//select[contains(@id,'especie')]")
             print("Especies Registradas: " +str(ves))
-            for esp  in range(1, ves):
+            for esp  in range(1,ves):
                 print("Veces: "+ str(esp))
-                f.combo_index("//select[contains(@id,'especie')]",esp+1)
-                f.tiempo(5)
-                f.Click("//*[@id='id_agregar_especie']")
-                driver.implicitly_wait(25)
-                f.tiempo(25)
+                if esp == 1:
+                    f.combo_index("//select[contains(@id,'especie')]",1)
+                    f.tiempo(.5)
+                    f.Click("//*[@id='id_agregar_especie']")
+                    driver.implicitly_wait(11)
+                    f.tiempo(11)
+                elif esp == 2:
+                    f.combo_index("//select[contains(@id,'especie')]", 1)
+                    f.tiempo(.5)
+                    f.Click("//*[@id='id_agregar_especie']")
+                    driver.implicitly_wait(25)
+                    f.tiempo(25)
+                else:
+                    f.combo_index("//select[contains(@id,'especie')]", 1)
+                    f.tiempo(.5)
+                    f.Click("//*[@id='id_agregar_especie']")
+                    driver.implicitly_wait(25)
+                    f.tiempo(25)
 
-            '''
+
             #Tablas
             tbl1 =f.localizar_elemento("cantidadTable__animales")
             f.tiempo(1)
@@ -189,21 +209,22 @@ class Sisia(unittest.TestCase):
             ttb1=tb1/15
             tb1_t=str(ttb1).split(".")
             tb1_entero=int(tb1_t[0])
-            print("Entero: "+ str(tb1_entero))
-            print("Tabla: "+ str(tb1))
+            #print("Entero: "+ str(tb1_entero))
+            #print("Tabla: "+ str(tb1))
 
             #for r in range(1, tb1_entero+1):
             for r in range(1, 2):
                 f.Click("//span[@id='tablaAntirrabica__paginador__span__"+str(r)+"']")
-                f.scrolling(-360)
-                f.tiempo(1.5)
+                f.scrolling(-410)
+                f.tiempo(1)
 
                 #for ch in range(0,15):
+                Iden = f.localizar_elemento_css("tablaAntirrabica")
                 for ch in range(0, 15):
                     raz = random.randint(1, 6)
                     vacc = random.randint(1, 8)
-                    print("chec: "+str(ch))
-                    #Iden = f.localizar_elemento_css("tablaAntirrabica")
+                    #print("chec: "+str(ch))
+                    f.scrolling(30)
                     f.Click("//input[@id='tablaAntirrabica__check__"+str(ch)+"']")
                     f.combo_index("(//select[@id='id_raza'])["+str(ch+1)+"]",str(raz))
                     f.combo_index("(//select[@id='id_vacuna'])["+str(ch+1)+"]",str(vacc))
@@ -214,42 +235,107 @@ class Sisia(unittest.TestCase):
             if tbl2 == "Existe":
                 tbl2 = f.localizar_elemento("cantidadTable__animales__0")
                 tbl2 = f.obtenerTexto_id("cantidadTable__animales__0")
-                print("Base tabla dos: " +str(tbl2))
+                #print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
                 tb2 = float(tbl2)
                 ttb2 = tb2 / 15
                 tb1_t2 = str(ttb2).split(".")
                 tb2_entero = int(tb1_t2[0])
-                print("Tabla dos entero: " +str(tb2_entero))
+                #print("Tabla dos entero: " +str(tb2_entero))
 
                 #segunda tabla
-                for r in range(1, tb2_entero+1):
+                #for r in range(1, tb2_entero+1):
+                for r in range(1, 2):
                     f.Click("//span[contains(@id,'tablaAnimalExtra__0__paginador__span__" + str(r) + "')]")
-                    f.scrolling(-360)
-                    f.tiempo(1.5)
+                    f.scrolling(-420)
+                    f.tiempo(1)
 
                     # for ch in range(0,15):
+                    Iden = f.localizar_elemento_css("tablaBOVINO")
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
-                        print("chec: " + str(ch))
-                        Iden = f.localizar_elemento_css("tablaAntirrabica")
+                        #print("chec: " + str(ch))
+                        f.scrolling(30)
                         f.Click("//input[@id='tablaAnimalExtra__0__check__"+ str(ch) + "']")
                         f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
                         f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
-            '''
 
 
 
+            # Tabla 3
+            f.scrolling(750)
+            tbl3 = f.existe_try_class_name("tablaOVINO")
+            if tbl3 == "Existe":
+                tbl3 = f.localizar_elemento("cantidadTable__animales__1")
+                tbl3 = f.obtenerTexto_id("cantidadTable__animales__1")
+                #print("Base tabla tres: " + str(tbl3))
+                f.tiempo(2)
+                tb3 = float(tbl3)
+                ttb3 = tb3 / 15
+                tb1_t3 = str(ttb3).split(".")
+                tb3_entero = int(tb1_t3[0])
+                #print("Tabla tres entero: " + str(tb3_entero))
 
+                # Tercera tabla
+                # for r in range(1, tb3_entero+1):
+                for r in range(1, 2):
+                    f.Click("//span[contains(@id,'tablaAnimalExtra__1__paginador__span__" + str(r) + "')]")
+                    #f.scrolling(-360)
+                    f.tiempo(1)
 
+                    # for ch in range(0,15):
+                    Iden = f.localizar_elemento_css("tablaAntirrabica")
+                    for ch in range(0, 15):
+                        raz = random.randint(1, 6)
+                        vacc = random.randint(1, 8)
+                        #print("chec: " + str(ch))
+                        f.Click("//input[@id='tablaAnimalExtra__1__check__" + str(ch) + "']")
+                        f.scrolling(30)
+                        #f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
+                        #f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
 
-
-
-
-
-
-
+            #Nuevos Registros
+            reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
+            f.scrolling(30)
+            f.tiempo(2)
+            f.Click("//label[contains(.,'Registrar animales adicionales')]")
+            f.scrolling(150)
+            f.texto("//input[@id='id_adefoc_animal_nuevo']","Nuevo uno")
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_especie_animal_nuevo']",1)
+            f.tiempo(.6)
+            f.texto("//input[@id='id_edad_animal_nuevo']",3)
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_raza_animal_nuevo']",3)
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_sexo_animal_nuevo']",1)
+            f.tiempo(.6)
+            f.texto("//input[contains(@id,'patente')]","Patenete nueva")
+            f.tiempo(.6)
+            f.Click("//button[contains(.,'Agregar datos')]")
+            f.scrolling(-150)
+            f.tiempo(1)
+            f.texto("//input[@id='id_adefoc_animal_nuevo']", "Nuevo dos")
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_especie_animal_nuevo']", 1)
+            f.tiempo(.6)
+            f.texto("//input[@id='id_edad_animal_nuevo']", 4)
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_raza_animal_nuevo']", 2)
+            f.tiempo(.6)
+            f.combo_index("//select[@id='id_sexo_animal_nuevo']", 2)
+            f.tiempo(.6)
+            f.texto("//input[contains(@id,'patente')]", "Patenete nueva dos")
+            f.tiempo(.6)
+            f.Click("//button[contains(.,'Agregar datos')]")
+            f.tiempo(1)
+            f.scrolling(300)
+            f.tiempo(1)
+            f.combo_index("(//select[contains(@id,'extra')])[63]",1)
+            f.tiempo(.6)
+            f.combo_index("(//select[contains(@id,'extra')])[64]",2)
+            f.tiempo(4)
 
 
 
