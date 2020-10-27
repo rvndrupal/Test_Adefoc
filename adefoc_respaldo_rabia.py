@@ -23,12 +23,11 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 4
+ren = 3
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 1
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
 
 
 ruta="http://10.16.3.29:8003/login"
@@ -36,7 +35,6 @@ ruta="http://10.16.3.29:8003/login"
 #AB20200000044
 #RAB20200000017
 #RAB20200000098
-#RAB20200000013
 
 
 #cls
@@ -135,7 +133,7 @@ class Sisia(unittest.TestCase):
 
 
             #Solicitud
-            f.tiempo(5)
+            f.tiempo(2)
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")
             f.Click("//*[@id='id_ir_consulta_solicitud']")
             f.scrolling(600)
@@ -215,7 +213,7 @@ class Sisia(unittest.TestCase):
             #print("Tabla: "+ str(tb1))
 
             #for r in range(1, tb1_entero+1):
-            for r in range(1, nf):
+            for r in range(1, 2):
                 f.Click("//span[@id='tablaAntirrabica__paginador__span__"+str(r)+"']")
                 f.scrolling(-410)
                 f.tiempo(1)
@@ -247,7 +245,7 @@ class Sisia(unittest.TestCase):
 
                 #segunda tabla
                 #for r in range(1, tb2_entero+1):
-                for r in range(1, nf):
+                for r in range(1, 2):
                     f.Click("//span[contains(@id,'tablaAnimalExtra__0__paginador__span__" + str(r) + "')]")
                     f.scrolling(-420)
                     f.tiempo(1)
@@ -281,7 +279,7 @@ class Sisia(unittest.TestCase):
 
                 # Tercera tabla
                 # for r in range(1, tb3_entero+1):
-                for r in range(1, nf):
+                for r in range(1, 2):
                     f.Click("//span[contains(@id,'tablaAnimalExtra__1__paginador__span__" + str(r) + "')]")
                     #f.scrolling(-360)
                     f.tiempo(1)
@@ -296,48 +294,6 @@ class Sisia(unittest.TestCase):
                         f.scrolling(30)
                         #f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
                         #f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
-
-
-
-            # Tabla tablaCAPRINO
-            f.scrolling(750)
-            f.tiempo(1)
-            tbl4 = f.existe_try_class_name("tablaCAPRINO")
-            Iden = f.localizar_elemento_css("tablaCAPRINO")
-            f.tiempo(2)
-            print("Tabla caprino" +str(tbl4))
-            if tbl4 == "Existe":
-                tbl4 = f.localizar_elemento("cantidadTable__animales__0")
-                tbl4 = f.obtenerTexto_id("cantidadTable__animales__0")
-                # print("Base tabla dos: " +str(tbl2))
-                f.tiempo(2)
-                tb4 = float(tbl4)
-                ttb4 = tb4 / 15
-                tb1_t4 = str(ttb4).split(".")
-                tb4_entero = int(tb1_t4[0])
-                print("Tabla dos entero: " +str(tb4_entero))
-
-                # segunda tabla
-                # for r in range(1, tb4_entero+1):
-                for r in range(1, nf):
-                    #f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+ str(r)+"')]")
-                    f.Click(" // *[ @ id = 'tablaAnimalExtra__1__paginador__span__"+ str(r)+"']")
-                    f.scrolling(-750)
-                    f.tiempo(1)
-
-                    # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaCAPRINO")
-                    print("identificado"+ str(Iden))
-                    for ch in range(0, 15):
-                        raz = random.randint(1, 6)
-                        vacc = random.randint(1, 8)
-                        # print("chec: " + str(ch))
-                        f.scrolling(30)
-                        f.Click("//input[@id='tablaAnimalExtra__1__check__" + str(ch) + "']")
-                        #f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
-                        #f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
-
-
 
             #Nuevos Registros
             reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
