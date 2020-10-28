@@ -28,7 +28,8 @@ excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 1
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
+nf=2
+vacunas=10
 
 
 ruta="http://10.16.3.29:8003/login"
@@ -37,6 +38,7 @@ ruta="http://10.16.3.29:8003/login"
 #RAB20200000017
 #RAB20200000098
 #RAB20200000013
+#RAB20200000039
 
 
 #cls
@@ -47,7 +49,7 @@ class Sisia(unittest.TestCase):
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(executable_path="C:\chromedriver.exe")
         cls.driver.maximize_window()
-        cls.driver.implicitly_wait(8)
+        cls.driver.implicitly_wait(40)
 
     # @unittest.skip("Para pruebas de datos")
     # Primero
@@ -92,7 +94,8 @@ class Sisia(unittest.TestCase):
 
 
 
-
+            #seleccionar clase de vacuna
+            '''
             f.texto("//input[contains(@id,'unidad')]", clave)
             f.tiempo(1)
             f.Click("//button[contains(@id,'id_buscar_unidad')]")
@@ -129,20 +132,20 @@ class Sisia(unittest.TestCase):
             clave=clave[53:]
             print("Clave:"+ str(clave))
             f.tiempo(5)
+            '''
 
 
 
 
 
             #Solicitud
+            f.Click("//*[@id='subenlaces']/ul/li[2]/a")      #se activa para directo programacion de actividades
             f.tiempo(5)
-            f.Click("//*[@id='subenlaces']/ul/li[2]/a")
-            f.Click("//*[@id='id_ir_consulta_solicitud']")
+            f.Click("//a[contains(@id,'solicitud')][contains(.,'Mis solicitudes')]")
             f.scrolling(600)
             f.tiempo(2)
             #f.texto("//input[contains(@id,'solicitud')]",clave)
-            f.texto("//input[contains(@id,'solicitud')]",clave)
-
+            f.texto("//input[contains(@id,'solicitud')]","RAB20200000042")
             f.tiempo(2)
             f.scrolling(130)
             f.Click("//button[@id='id_buscar_solicitud']")
@@ -161,7 +164,7 @@ class Sisia(unittest.TestCase):
             path = excel
             hoja = "vacunas"
             renv=1
-            casosv=10
+            casosv=vacunas
             rows2 = fe.getRowCount(path, hoja)
             for r in range(renv, rows2 + 1):
                 vacuna = fe.readData(path, hoja, r, 1)
@@ -202,7 +205,7 @@ class Sisia(unittest.TestCase):
                     driver.implicitly_wait(25)
                     f.tiempo(25)
 
-
+            '''
             #Tablas
             tbl1 =f.localizar_elemento("cantidadTable__animales")
             f.tiempo(1)
@@ -231,12 +234,15 @@ class Sisia(unittest.TestCase):
                     f.combo_index("(//select[@id='id_raza'])["+str(ch+1)+"]",str(raz))
                     f.combo_index("(//select[@id='id_vacuna'])["+str(ch+1)+"]",str(vacc))
 
+
+
+
             #Tabla 2
             f.scrolling(750)
             tbl2=f.existe_try_class_name("tablaBOVINO")
             if tbl2 == "Existe":
-                tbl2 = f.localizar_elemento("cantidadTable__animales__0")
-                tbl2 = f.obtenerTexto_id("cantidadTable__animales__0")
+                tbl2 = f.localizar_elemento("cantidadTable__BOVINO")
+                tbl2 = f.obtenerTexto_id("cantidadTable__BOVINO")
                 #print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
                 tb2 = float(tbl2)
@@ -260,8 +266,9 @@ class Sisia(unittest.TestCase):
                         #print("chec: " + str(ch))
                         f.scrolling(30)
                         f.Click("//input[@id='tablaAnimalExtra__0__check__"+ str(ch) + "']")
-                        f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
-                        f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
+                        f.combo_index("//select[@id='id_raza_BOVINO__"+ str(ch) +"']", str(raz))
+                        f.combo_index("//select[@id='id_vacuna_BOVINO__"+str(ch)+"']", str(vacc))
+
 
 
 
@@ -269,8 +276,8 @@ class Sisia(unittest.TestCase):
             f.scrolling(750)
             tbl3 = f.existe_try_class_name("tablaOVINO")
             if tbl3 == "Existe":
-                tbl3 = f.localizar_elemento("cantidadTable__animales__1")
-                tbl3 = f.obtenerTexto_id("cantidadTable__animales__1")
+                tbl3 = f.localizar_elemento("cantidadTableOVINO")
+                tbl3 = f.obtenerTexto_id("cantidadTableOVINO")
                 #print("Base tabla tres: " + str(tbl3))
                 f.tiempo(2)
                 tb3 = float(tbl3)
@@ -287,18 +294,18 @@ class Sisia(unittest.TestCase):
                     f.tiempo(1)
 
                     # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaAntirrabica")
+                    Iden = f.localizar_elemento_css("tablaOVINO")
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         #print("chec: " + str(ch))
                         f.Click("//input[@id='tablaAnimalExtra__1__check__" + str(ch) + "']")
                         f.scrolling(30)
-                        #f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
-                        #f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
+                        f.combo_index("//select[@id='id_raza_OVINO__" + str(ch) + "']", str(raz))
+                        f.combo_index("//select[@id='id_vacuna_OVINO__" + str(ch) + "']", str(vacc))
 
 
-
+            '''
             # Tabla tablaCAPRINO
             f.scrolling(750)
             f.tiempo(1)
@@ -307,8 +314,8 @@ class Sisia(unittest.TestCase):
             f.tiempo(2)
             print("Tabla caprino" +str(tbl4))
             if tbl4 == "Existe":
-                tbl4 = f.localizar_elemento("cantidadTable__animales__0")
-                tbl4 = f.obtenerTexto_id("cantidadTable__animales__0")
+                tbl4 = f.localizar_elemento("cantidadTable__CAPRINO")
+                tbl4 = f.obtenerTexto_id("cantidadTable__CAPRINO")
                 # print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
                 tb4 = float(tbl4)
@@ -317,25 +324,27 @@ class Sisia(unittest.TestCase):
                 tb4_entero = int(tb1_t4[0])
                 print("Tabla dos entero: " +str(tb4_entero))
 
-                # segunda tabla
+                # TABLA CAPRINO
                 # for r in range(1, tb4_entero+1):
                 for r in range(1, nf):
                     #f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+ str(r)+"')]")
                     f.Click(" // *[ @ id = 'tablaAnimalExtra__1__paginador__span__"+ str(r)+"']")
-                    f.scrolling(-750)
+                    f.scrolling(-800)
                     f.tiempo(1)
 
                     # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaCAPRINO")
-                    print("identificado"+ str(Iden))
+                    #Iden = f.localizar_elemento_css("tablaCAPRINO")
+                    #tbl4 = f.localizar_elemento_css("tablaCAPRINO")
+                    #print("identificado"+ str(tbl4))
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         # print("chec: " + str(ch))
                         f.scrolling(30)
-                        f.Click("//input[@id='tablaAnimalExtra__1__check__" + str(ch) + "']")
-                        #f.combo_index("(//select[@id='id_raza_extra'])[" + str(ch + 1) + "]", str(raz))
-                        #f.combo_index("(//select[@id='id_vacuna_extra'])[" + str(ch + 1) + "]", str(vacc))
+                        f.tiempo(10)
+                        f.Click("//input[contains(@id,'tablaAnimalExtra__0__check__"+str(ch)+"')]")
+                        f.combo_index("//select[@id='id_raza_CAPRINO__"+str(ch)+"']", str(raz))
+                        f.combo_index("//select[@id='id_vacuna_CAPRINO__"+str(ch)+"']", str(vacc))
 
 
 
