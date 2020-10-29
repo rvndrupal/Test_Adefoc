@@ -95,7 +95,7 @@ class Sisia(unittest.TestCase):
 
 
             #seleccionar clase de vacuna
-            '''
+
             f.texto("//input[contains(@id,'unidad')]", clave)
             f.tiempo(1)
             f.Click("//button[contains(@id,'id_buscar_unidad')]")
@@ -132,7 +132,7 @@ class Sisia(unittest.TestCase):
             clave=clave[53:]
             print("Clave:"+ str(clave))
             f.tiempo(5)
-            '''
+            
 
 
 
@@ -145,7 +145,7 @@ class Sisia(unittest.TestCase):
             f.scrolling(600)
             f.tiempo(2)
             #f.texto("//input[contains(@id,'solicitud')]",clave)
-            f.texto("//input[contains(@id,'solicitud')]","RAB20200000042")
+            f.texto("//input[contains(@id,'solicitud')]",clave)
             f.tiempo(2)
             f.scrolling(130)
             f.Click("//button[@id='id_buscar_solicitud']")
@@ -205,7 +205,7 @@ class Sisia(unittest.TestCase):
                     driver.implicitly_wait(25)
                     f.tiempo(25)
 
-            '''
+
             #Tablas
             tbl1 =f.localizar_elemento("cantidadTable__animales")
             f.tiempo(1)
@@ -230,16 +230,16 @@ class Sisia(unittest.TestCase):
                     vacc = random.randint(1, 8)
                     #print("chec: "+str(ch))
                     f.scrolling(30)
-                    f.Click("//input[@id='tablaAntirrabica__check__"+str(ch)+"']")
-                    f.combo_index("(//select[@id='id_raza'])["+str(ch+1)+"]",str(raz))
-                    f.combo_index("(//select[@id='id_vacuna'])["+str(ch+1)+"]",str(vacc))
+                    f.Click("//input[@id='id_check_tablaAntirrabica__"+str(ch)+"']")
+                    f.combo_index("//select[@id='id_raza_tablaAntirrabica__"+str(ch)+"']",str(raz))
+                    f.combo_index("//select[@id='id_vacuna_tablaAntirrabica__"+str(ch)+"']",str(vacc))
 
 
 
 
             #Tabla 2
             f.scrolling(750)
-            tbl2=f.existe_try_class_name("tablaBOVINO")
+            tbl2=f.existe_try_class_name("tabla_BOVINO")
             if tbl2 == "Existe":
                 tbl2 = f.localizar_elemento("cantidadTable__BOVINO")
                 tbl2 = f.obtenerTexto_id("cantidadTable__BOVINO")
@@ -259,13 +259,13 @@ class Sisia(unittest.TestCase):
                     f.tiempo(1)
 
                     # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaBOVINO")
+                    Iden = f.localizar_elemento_css("tabla_BOVINO")
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         #print("chec: " + str(ch))
                         f.scrolling(30)
-                        f.Click("//input[@id='tablaAnimalExtra__0__check__"+ str(ch) + "']")
+                        f.Click("//input[@id='id_check_BOVINO__"+str(ch)+"']")
                         f.combo_index("//select[@id='id_raza_BOVINO__"+ str(ch) +"']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_BOVINO__"+str(ch)+"']", str(vacc))
 
@@ -274,10 +274,10 @@ class Sisia(unittest.TestCase):
 
             # Tabla 3
             f.scrolling(750)
-            tbl3 = f.existe_try_class_name("tablaOVINO")
+            tbl3 = f.existe_try_class_name("tabla_OVINO")
             if tbl3 == "Existe":
-                tbl3 = f.localizar_elemento("cantidadTableOVINO")
-                tbl3 = f.obtenerTexto_id("cantidadTableOVINO")
+                tbl3 = f.localizar_elemento("cantidadTable__OVINO")
+                tbl3 = f.obtenerTexto_id("cantidadTable__OVINO")
                 #print("Base tabla tres: " + str(tbl3))
                 f.tiempo(2)
                 tb3 = float(tbl3)
@@ -290,16 +290,16 @@ class Sisia(unittest.TestCase):
                 # for r in range(1, tb3_entero+1):
                 for r in range(1, nf):
                     f.Click("//span[contains(@id,'tablaAnimalExtra__1__paginador__span__" + str(r) + "')]")
-                    #f.scrolling(-360)
+                    f.scrolling(-500)
                     f.tiempo(1)
 
                     # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaOVINO")
+                    Iden = f.localizar_elemento_css("tabla_OVINO")
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         #print("chec: " + str(ch))
-                        f.Click("//input[@id='tablaAnimalExtra__1__check__" + str(ch) + "']")
+                        f.Click("//input[@id='id_check_OVINO__"+str(ch)+"']")
                         f.scrolling(30)
                         f.combo_index("//select[@id='id_raza_OVINO__" + str(ch) + "']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_OVINO__" + str(ch) + "']", str(vacc))
@@ -310,12 +310,13 @@ class Sisia(unittest.TestCase):
             f.scrolling(750)
             f.tiempo(1)
             tbl4 = f.existe_try_class_name("tablaCAPRINO")
-            Iden = f.localizar_elemento_css("tablaCAPRINO")
+
             f.tiempo(2)
             print("Tabla caprino" +str(tbl4))
             if tbl4 == "Existe":
                 tbl4 = f.localizar_elemento("cantidadTable__CAPRINO")
                 tbl4 = f.obtenerTexto_id("cantidadTable__CAPRINO")
+                #Iden = f.localizar_elemento_css("tablaCAPRINO")
                 # print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
                 tb4 = float(tbl4)
@@ -345,6 +346,7 @@ class Sisia(unittest.TestCase):
                         f.Click("//input[contains(@id,'tablaAnimalExtra__0__check__"+str(ch)+"')]")
                         f.combo_index("//select[@id='id_raza_CAPRINO__"+str(ch)+"']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_CAPRINO__"+str(ch)+"']", str(vacc))
+            '''
 
 
 
@@ -385,9 +387,9 @@ class Sisia(unittest.TestCase):
             f.tiempo(1)
             f.scrolling(300)
             f.tiempo(1)
-            f.combo_index("(//select[contains(@id,'extra')])[63]",1)
+            f.combo_index("//select[@id='id_vacuna_animalExtra_0']",1)
             f.tiempo(.6)
-            f.combo_index("(//select[contains(@id,'extra')])[64]",2)
+            f.combo_index("//select[@id='id_vacuna_animalExtra_1']",2)
             f.tiempo(4)
 
             #final
