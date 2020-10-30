@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentos/EXCEL_PRUE.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/EXCEL_PRUE.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/adefoc.py" beforeDir="false" afterPath="$PROJECT_DIR$/adefoc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adefoc_t2.py" beforeDir="false" afterPath="$PROJECT_DIR$/adefoc_t2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +32,7 @@
       <recent name="C:\ADEFOC" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for adefoc.Sisia.test01_registro">
+  <component name="RunManager" selected="Python tests.pytest for adefoc_t2.Sisia.test01_registro">
     <configuration name="pytest for adefoc2.Sisia.test01_registro" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="ADEFOC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -94,8 +95,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for adefoc.Sisia.test01_registro" />
         <item itemvalue="Python tests.pytest for adefoc_t2.Sisia.test01_registro" />
+        <item itemvalue="Python tests.pytest for adefoc.Sisia.test01_registro" />
         <item itemvalue="Python tests.pytest for adefoc3.Sisia.test01_registro" />
         <item itemvalue="Python tests.pytest for adefoc2.Sisia.test01_registro" />
       </list>
@@ -119,22 +120,22 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2660" y="279" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1603923792144" />
-    <state width="1899" height="248" key="GridCell.Tab.0.bottom" timestamp="1603999951785">
+    <state width="1899" height="248" key="GridCell.Tab.0.bottom" timestamp="1604018334413">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="248" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1603999951785" />
-    <state width="1899" height="248" key="GridCell.Tab.0.center" timestamp="1603999951785">
+    <state width="1899" height="248" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604018334413" />
+    <state width="1899" height="248" key="GridCell.Tab.0.center" timestamp="1604018334413">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="248" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1603999951785" />
-    <state width="1899" height="248" key="GridCell.Tab.0.left" timestamp="1603999951785">
+    <state width="1899" height="248" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604018334413" />
+    <state width="1899" height="248" key="GridCell.Tab.0.left" timestamp="1604018334413">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="248" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1603999951785" />
-    <state width="1899" height="248" key="GridCell.Tab.0.right" timestamp="1603999951785">
+    <state width="1899" height="248" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604018334413" />
+    <state width="1899" height="248" key="GridCell.Tab.0.right" timestamp="1604018334413">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="248" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1603999951785" />
+    <state width="1899" height="248" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604018334413" />
     <state x="2546" y="143" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603397104492">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

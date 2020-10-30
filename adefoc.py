@@ -28,8 +28,8 @@ excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 1
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=2
-vacunas=10
+nf=3
+vacunas=25
 
 
 ruta="http://10.16.3.29:8003/login"
@@ -207,6 +207,7 @@ class Sisia(unittest.TestCase):
 
 
             #Tablas
+            tbl2=f.existe_try_class_name("tablaAntirrabica")
             tbl1 =f.localizar_elemento("cantidadTable__animales")
             f.tiempo(1)
             tb1=f.obtenerTexto_id("cantidadTable__animales")

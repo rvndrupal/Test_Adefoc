@@ -23,7 +23,7 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 4
+ren = 5
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 1
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
@@ -41,6 +41,7 @@ ruta2="http://10.16.3.29:8003/consulta-solicitudes"
 #VBR202000000032
 #VBR202000000044
 #VBR20200000045
+#VBR20200000050
 
 #cls
 class Sisia(unittest.TestCase):
@@ -76,7 +77,7 @@ class Sisia(unittest.TestCase):
 
 
             rf = random.randint(1, 5)
-            fecha1 = datetime.now()+ + timedelta(days=rf)
+            fecha1 = datetime.now()
             fecha1 = fecha1.strftime('%d/%m/%Y')
 
             # Login
@@ -85,7 +86,7 @@ class Sisia(unittest.TestCase):
             f.texto("//input[contains(@id,'username')]", user)
             f.texto("//input[contains(@id,'password')]", passw)
             f.Click("//button[@class='btn btn-primary'][contains(.,'Acceder')]")
-            f.tiempo(4)
+            f.tiempo(2)
 
 
 
@@ -104,16 +105,17 @@ class Sisia(unittest.TestCase):
             #vs=f.combo_index_existe("//select[contains(@id,'id_tipo_solicitud')]")
             #print(vs)
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
-            f.tiempo(3)
+            f.tiempo(2)
             f.combo_index("//select[contains(@id,'especie')]",especie)
-            f.tiempo(70)
-            driver.implicitly_wait(70)
+            f.tiempo(55)
+            driver.implicitly_wait(60)
             #f.combo_index("//select[contains(@id,'zootecnica')]",zoo)
             f.combo_index("//*[@id='id_funcion_zootecnica']",zoo)
             f.tiempo(1.5)
             f.texto("//input[contains(@id,'fechaInicio')]", fecha1)
             f.tiempo(1.5)
 
+            driver.implicitly_wait(3)
             numa = f.obtenerTexto("//label[contains(@class,'control-label numero')]")
             numa=numa[3:]
             print("Numero de  animales"+ str(numa))
@@ -131,34 +133,53 @@ class Sisia(unittest.TestCase):
             clave=f.obtenerTexto("/html/body/app-root/app-consulta-unidad/main/div/app-header/div[2]/div/app-global-alert/div")
             clave=clave[53:]
             print("Clave:"+ str(clave))
-            f.tiempo(3)
+            f.tiempo(1)
 
             # Solicitud
-            f.tiempo(5)
+            f.tiempo(1)
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")
             f.Click("//*[@id='id_ir_consulta_solicitud']")
-            f.scrolling(600)
-            f.tiempo(2)
+            f.scrolling(800)
+            f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
             #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000045")
+            f.tiempo(10)
+            f.Click("//span[@class='glyphicon glyphicon-search']")
+            f.tiempo(5)
+            f.scrolling(300)
 
-            aut=f.existe_try("//button[@id='id_autorizar_solicitud']")
-            if aut== "Existe":
-                f.Click("//button[@id='id_autorizar_solicitud']")
-            elif aut=="Falso":
-                f.tiempo(2)
-                f.scrolling(130)
-                f.Click("//button[@id='id_buscar_solicitud']")
-                f.tiempo(2)
-                f.scrolling(210)
+
+
+
+            #vuscar por folio
+            #tip = f.localizar_elemento_css("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
+            tipo = f.existe_try("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
+            if tipo == "Existe":
+                local_tipo = f.localizar_elemento_xpath("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
                 f.tiempo(2)
                 f.Click("//*[@id='id_detalle_solicitud']")
                 f.scrolling(450)
                 f.tiempo(2)
-                f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                driver.implicitly_wait(20)
+                # f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
+                # driver.implicitly_wait(20)
                 f.scrolling(1000)
                 f.tiempo(5)
+
+                #Boton de autorizar
+                aut=f.existe_try("//*[@id='id_autorizar_solicitud']")
+                print(aut)
+                if aut== "Existe":
+                    f.Click("//*[@id='id_autorizar_solicitud']")
+                    f.tiempo(5)
+                elif aut=="Falso":
+                    f.scrolling(160)
+                    f.tiempo(2)
+                    f.Click("//button[@id='id_buscar_solicitud']")
+                    f.tiempo(2)
+                    f.scrolling(250)
+                    f.tiempo(4)
+                    # Click detalle tipo de vacuna
+
 
 
 
