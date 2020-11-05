@@ -107,8 +107,8 @@ class Sisia(unittest.TestCase):
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
             f.tiempo(2)
             f.combo_index("//select[contains(@id,'especie')]",especie)
-            f.tiempo(55)
-            driver.implicitly_wait(60)
+            f.tiempo(65)
+            driver.implicitly_wait(65)
             #f.combo_index("//select[contains(@id,'zootecnica')]",zoo)
             f.combo_index("//*[@id='id_funcion_zootecnica']",zoo)
             f.tiempo(1.5)
@@ -116,6 +116,7 @@ class Sisia(unittest.TestCase):
             f.tiempo(1.5)
 
             driver.implicitly_wait(3)
+            f.scrolling(100)
             numa = f.obtenerTexto("//label[contains(@class,'control-label numero')]")
             numa=numa[3:]
             print("Numero de  animales"+ str(numa))
@@ -129,56 +130,46 @@ class Sisia(unittest.TestCase):
             f.tiempo(1)
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
             f.scrolling(-1200)
-            f.tiempo(2)
+            f.tiempo(4)
             clave=f.obtenerTexto("/html/body/app-root/app-consulta-unidad/main/div/app-header/div[2]/div/app-global-alert/div")
             clave=clave[53:]
             print("Clave:"+ str(clave))
             f.tiempo(1)
 
+
             # Solicitud
             f.tiempo(1)
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")
             f.Click("//*[@id='id_ir_consulta_solicitud']")
-            f.scrolling(800)
+            f.scrolling(900)
             f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
-            #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000045")
-            f.tiempo(10)
+            #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000075")
+            f.tiempo(3)
             f.Click("//span[@class='glyphicon glyphicon-search']")
-            f.tiempo(5)
-            f.scrolling(300)
+            f.tiempo(2)
+
+            #ir a detalle
+            f.scrolling(100)
+            #click detalle
+            f.Click("//button[@id='id_detalle_solicitud']")
+            f.scrolling(200)
+            f.tiempo(2)
 
 
 
+            # boton autorizar
+            bt = f.existe_try("//*[@id='id_autorizar_solicitud']")
+            if bt == "Existe":
+                f.Click("//*[@id='id_autorizar_solicitud']")
+                f.tiempo(1)
+                f.scrolling(150)
+                f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
+                f.tiempo(6)
+            elif bt == "Falso":
+                f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
+                f.tiempo(6)
 
-            #vuscar por folio
-            #tip = f.localizar_elemento_css("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
-            tipo = f.existe_try("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
-            if tipo == "Existe":
-                local_tipo = f.localizar_elemento_xpath("//td[contains(.,'CONSTANCIA DE VACUNACIÓN DE BRUCELOSIS')]")
-                f.tiempo(2)
-                f.Click("//*[@id='id_detalle_solicitud']")
-                f.scrolling(450)
-                f.tiempo(2)
-                # f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                # driver.implicitly_wait(20)
-                f.scrolling(1000)
-                f.tiempo(5)
-
-                #Boton de autorizar
-                aut=f.existe_try("//*[@id='id_autorizar_solicitud']")
-                print(aut)
-                if aut== "Existe":
-                    f.Click("//*[@id='id_autorizar_solicitud']")
-                    f.tiempo(5)
-                elif aut=="Falso":
-                    f.scrolling(160)
-                    f.tiempo(2)
-                    f.Click("//button[@id='id_buscar_solicitud']")
-                    f.tiempo(2)
-                    f.scrolling(250)
-                    f.tiempo(4)
-                    # Click detalle tipo de vacuna
 
 
 
@@ -198,7 +189,7 @@ class Sisia(unittest.TestCase):
                 f.tiempo(1)
                 #f.combo_index("//select[contains(@id,'vacuna')]",vacuna)
                 f.combo_index("//select[contains(@id,'vacuna')]",1)
-                f.tiempo(.5)
+                f.tiempo(1.5)
                 f.combo_index("//select[contains(@id,'dosificacion')]",1)
                 f.tiempo(.5)
                 #f.texto("//input[contains(@id,'laboratorio')]",Labora)
@@ -217,7 +208,8 @@ class Sisia(unittest.TestCase):
 
             # Tabla tablaVBrucelosis
             f.scrolling(750)
-            f.tiempo(1)
+            f.tiempo(10)
+            driver.implicitly_wait(10)
             tbl5 = f.existe_try_class_name("tablaVBrucelosis")
             Iden = f.localizar_elemento_css("tablaVBrucelosis")
             f.tiempo(2)
