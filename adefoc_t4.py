@@ -23,7 +23,7 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 5
+ren = 6
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 1
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
@@ -34,14 +34,7 @@ vacunas=10
 
 ruta="http://10.16.3.29:8003/login"
 ruta2="http://10.16.3.29:8003/consulta-solicitudes"
-#AB20200000044
-#RAB20200000017
-#RAB20200000098
-#RAB20200000013
-#VBR202000000032
-#VBR202000000044
-#VBR20200000045
-#VBR20200000050
+#BR20200000042
 
 #cls
 class Sisia(unittest.TestCase):
@@ -78,6 +71,7 @@ class Sisia(unittest.TestCase):
 
             rf = random.randint(1, 5)
             fecha1 = datetime.now()
+            #fecha1 = datetime.now() + timedelta(days=7)
             fecha1 = fecha1.strftime('%d/%m/%Y')
 
             # Login
@@ -106,9 +100,13 @@ class Sisia(unittest.TestCase):
             #print(vs)
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
             f.tiempo(2)
-            f.combo_index("//select[contains(@id,'especie')]",especie)
-            f.tiempo(65)
-            driver.implicitly_wait(65)
+            #Motico de Prueba
+            f.combo_index("//select[contains(@id,'id_motivo_prueba')]",7)
+            f.tiempo(2)
+            #Especie
+            f.combo_index("//select[contains(@id,'especie')]",3)
+            f.tiempo(10)
+            driver.implicitly_wait(10)
             #f.combo_index("//select[contains(@id,'zootecnica')]",zoo)
             f.combo_index("//*[@id='id_funcion_zootecnica']",zoo)
             f.tiempo(1.5)
@@ -127,7 +125,7 @@ class Sisia(unittest.TestCase):
             f.Click("//input[@id='id_datos_correctos']")
             f.tiempo(.5)
             f.Click("//button[contains(@id,'solicitud')]")
-            f.tiempo(1)
+            f.tiempo(2)
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
             f.scrolling(-1200)
             f.tiempo(4)
@@ -141,7 +139,7 @@ class Sisia(unittest.TestCase):
             f.tiempo(1)
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")
             f.Click("//*[@id='id_ir_consulta_solicitud']")
-            f.scrolling(900)
+            f.scrolling(400)
             f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
             #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000075")
@@ -165,15 +163,24 @@ class Sisia(unittest.TestCase):
                 f.tiempo(1)
                 f.scrolling(150)
                 f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                f.tiempo(6)
+                f.tiempo(3)
             elif bt == "Falso":
                 f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                f.tiempo(6)
+                f.tiempo(3)
+
+
+            #dictamen de prueba de Brucelosis.
+            f.Click("//input[contains(@id,'id_tipo_solicitud_2')]")
+            f.tiempo(1)
+            f.texto("//input[@id='id_fecha_prueba']",fecha1)
+            Labor=["Laboratorio1","Laboratorio2","Laboratorio3","Laboratorio4","Laboratorio5"]
+            Le=random.choice(Labor)
+            f.texto("//input[contains(@id,'id_nombre_laboratorio')]",Le)
+            f.tiempo(1)
 
 
 
-
-
+            '''
             #Vacunación
             path = excel
             hoja = "vacunas"
@@ -203,6 +210,7 @@ class Sisia(unittest.TestCase):
                 #f.tiempo(.5)
                 if (r == casosv):
                     break
+            '''
 
 
 
@@ -210,12 +218,13 @@ class Sisia(unittest.TestCase):
             f.scrolling(750)
             f.tiempo(10)
             driver.implicitly_wait(10)
-            tbl5 = f.existe_try_class_name("tablaVBrucelosis")
-            Iden = f.localizar_elemento_css("tablaVBrucelosis")
+            tbl5 = f.existe_try_class_name("tablaDBrucelosis")
+            Iden = f.localizar_elemento_css("tablaDBrucelosis")
             f.tiempo(2)
-            print("Tabla Brucelosis" + str(tbl5))
+            print("Tabla tablaDBrucelosis" + str(tbl5))
             if tbl5 == "Existe":
                 tbl5 = f.localizar_elemento("cantidadTable__animales")
+                f.scrolling(20)
                 tbl5 = f.obtenerTexto_id("cantidadTable__animales")
                 # print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
@@ -223,27 +232,29 @@ class Sisia(unittest.TestCase):
                 ttb5 = tb5 / 15
                 tb1_t5 = str(ttb5).split(".")
                 tb5_entero = int(tb1_t5[0])
-                print("Tabla Brucelosis: " + str(tb5_entero))
+                print("Tabla tablaDBrucelosis: " + str(tb5_entero))
 
                 # segunda tabla
-                # for r in range(1, tb4_entero+1):
-                for r in range(1, nf):
+                for r in range(1, tb5_entero+1):
+                #for r in range(1, nf):
                     # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
-                    f.Click("//span[@id='tablaVBrucelosis__paginador__span__"+str(r)+"']")
+                    f.Click("//span[contains(@id,'tablaDBrucelosis__paginador__span__"+str(r)+"')]")
                     f.scrolling(-750)
                     f.tiempo(1)
 
                     # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaVBrucelosis")
+                    Iden = f.localizar_elemento_css("tablaDBrucelosis")
                     print("identificado" + str(Iden))
                     for ch in range(0, 15):
                         raz = random.randint(1, 6)
-                        vacc = random.randint(1, 8)
+                        vacc = random.randint(1, 3)
                         # print("chec: " + str(ch))
                         f.scrolling(30)
-                        f.Click("//input[contains(@id,'id_check_tablaVBrucelosis__"+str(ch)+"')]")
-                        f.combo_index("//select[@id='id_raza_tablaVBrucelosis__"+str(ch)+"']", str(raz))
-                        f.combo_index("//select[@id='id_vacuna_tablaVBrucelosis__"+str(ch)+"']", str(vacc))
+                        f.Click("//input[contains(@id,'id_check_tablaDBrucelosis__"+str(ch)+"')]")
+                        f.combo_index("//select[contains(@id,'id_raza_tablaDBrucelosis__"+str(ch)+"')]", str(raz))
+                        f.combo_index("//select[contains(@id,'id_origen_tablaDBrucelosis__"+str(ch)+"')]", str(vacc))
+                        f.combo_index("//select[contains(@id,'id_resultado_tablaDBrucelosis__"+str(ch)+"')]", str(vacc))
+
 
 
 

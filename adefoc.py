@@ -75,7 +75,7 @@ class Sisia(unittest.TestCase):
 
 
             rf = random.randint(1, 5)
-            fecha1 = datetime.now()+ + timedelta(days=rf)
+            fecha1 = datetime.now()+timedelta(days=rf)
             fecha1 = fecha1.strftime('%d/%m/%Y')
 
             # Login
