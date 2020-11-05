@@ -256,6 +256,43 @@ class Sisia(unittest.TestCase):
                         f.combo_index("//select[contains(@id,'id_resultado_tablaDBrucelosis__"+str(ch)+"')]", str(vacc))
 
 
+            #Firma
+            f.Click("//span[contains(.,'Firmar')]")
+            f.tiempo(2)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+            f.tiempo(2)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+            f.tiempo(2)
+            f.Click("//a[contains(@id,'dictamen')]")
+            f.tiempo(2)
+            f.scrolling(200)
+            f.texto("//input[contains(@id,'solicitud')]",clave)
+            f.tiempo(1)
+            f.Click("//button[contains(@id,'dictamen')]")
+            f.tiempo(1)
+            f.scrolling(200)
+            #detalle
+            f.Click("//button[@id='id_detalle_dictamen']")
+            f.tiempo(3)
+            f.scrolling(1200)
+            f.Click("//button[contains(@id,'id_descargar_dictamen')]")
+            f.tiempo(4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
