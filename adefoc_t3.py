@@ -158,11 +158,11 @@ class Sisia(unittest.TestCase):
             f.texto("//input[contains(@id,'fechaInicio2')]",fa)
             f.texto("//input[@id='id_observaciones']",Observacion)
             est = random.randint(1, 8)
-            f.tiempo(4)
+            f.tiempo(6)
             f.combo_index("//select[contains(@id,'id_estado_destino')]",est)
-            f.tiempo(1.5)
+            f.tiempo(3)
             f.combo_index("//select[contains(@id,'id_municipio_destino')]",est)
-            f.tiempo(1.5)
+            f.tiempo(3)
 
             #Medio de tranporte
             f.texto("//input[contains(@id,'transporte')]",Carro)
