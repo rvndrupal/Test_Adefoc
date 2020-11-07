@@ -164,6 +164,10 @@ class Funciones():
         val=self.driver.find_element_by_xpath(xpath).text
         return val
 
+    def obtenerTexto2(self,xpath):
+        val=self.driver.find_element_by_xpath(xpath).value
+        return val
+
     def obtenerTexto_id(self, id):
         val = self.driver.find_element_by_id(id).text
         return val
