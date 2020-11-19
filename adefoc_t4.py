@@ -23,12 +23,12 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 6
+ren = 9
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 1
+casos= 9
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
+nf=2
 vacunas=10
 
 
@@ -58,7 +58,7 @@ class Sisia(unittest.TestCase):
         path = excel
         hoja = "registro"
         rows = fe.getRowCount(path, hoja)
-        for r in range(ren, rows + 1):
+        for r in range(ren, rows):
             user = fe.readData(path, hoja, r, 1)
             passw = fe.readData(path, hoja, r, 2)
             clave = fe.readData(path, hoja, r, 6)
@@ -180,37 +180,6 @@ class Sisia(unittest.TestCase):
 
 
 
-            '''
-            #Vacunación
-            path = excel
-            hoja = "vacunas"
-            renv=1
-            casosv=vacunas
-            rows2 = fe.getRowCount(path, hoja)
-            for r in range(renv, rows2 + 1):
-                vacuna = fe.readData(path, hoja, r, 1)
-                Labora = fe.readData(path, hoja, r, 2)
-                lote = fe.readData(path, hoja, r, 3)
-                laboratorio = fe.readData(path, hoja, r, 4)
-
-                f.tiempo(1)
-                #f.combo_index("//select[contains(@id,'vacuna')]",vacuna)
-                f.combo_index("//select[contains(@id,'vacuna')]",1)
-                f.tiempo(1.5)
-                f.combo_index("//select[contains(@id,'dosificacion')]",1)
-                f.tiempo(.5)
-                #f.texto("//input[contains(@id,'laboratorio')]",Labora)
-                f.texto("//input[contains(@id,'id_laboratorio')]",laboratorio)
-                #f.tiempo(.5)
-                f.texto("//input[contains(@id,'lote')]",lote)
-                #f.tiempo(.5)
-                f.texto("//input[@id='fechaCaducidad']",fecha1)
-                #f.tiempo(.5)
-                f.Click("//*[@id='id_agregar_vacuna']")
-                #f.tiempo(.5)
-                if (r == casosv):
-                    break
-            '''
 
 
 
@@ -235,10 +204,10 @@ class Sisia(unittest.TestCase):
                 print("Tabla tablaDBrucelosis: " + str(tb5_entero))
 
                 # segunda tabla
-                for r in range(1, tb5_entero+1):
-                #for r in range(1, nf):
+                #for r in range(1, tb5_entero+1):
+                for rt in range(1, nf):
                     # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
-                    f.Click("//span[contains(@id,'tablaDBrucelosis__paginador__span__"+str(r)+"')]")
+                    f.Click("//span[contains(@id,'tablaDBrucelosis__paginador__span__"+str(rt)+"')]")
                     f.scrolling(-750)
                     f.tiempo(1)
 
@@ -249,7 +218,7 @@ class Sisia(unittest.TestCase):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 3)
                         # print("chec: " + str(ch))
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.Click("//input[contains(@id,'id_check_tablaDBrucelosis__"+str(ch)+"')]")
                         f.combo_index("//select[contains(@id,'id_raza_tablaDBrucelosis__"+str(ch)+"')]", str(raz))
                         f.combo_index("//select[contains(@id,'id_origen_tablaDBrucelosis__"+str(ch)+"')]", str(vacc))
@@ -263,6 +232,7 @@ class Sisia(unittest.TestCase):
             f.tiempo(2)
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
             f.tiempo(2)
+            '''
             f.Click("//a[contains(@id,'dictamen')]")
             f.tiempo(2)
             f.scrolling(200)
@@ -277,28 +247,20 @@ class Sisia(unittest.TestCase):
             f.scrolling(1200)
             f.Click("//button[contains(@id,'id_descargar_dictamen')]")
             f.tiempo(4)
+            '''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            # salir
+            # Regresar a la tabla base
+            hoja = "registro"
+            f.scrolling(-1700)
+            f.localizar_elemento_xpath("//a[contains(.,'Salir')]")
+            f.tiempo(2)
+            f.Click("//a[contains(.,'Salir')]")
+            f.tiempo(2)
 
 
             #final
-            if (r == casos):
+            if  r == casos:
                 break
 
 

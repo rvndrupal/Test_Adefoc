@@ -23,7 +23,7 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 5
+ren = 6
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
 casos= 6
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
