@@ -109,6 +109,7 @@ class Funciones():
         try:
             self.driver.find_element_by_xpath(xpath)
             v="Existe"
+            time.sleep(1.5)
         except NoSuchElementException:
             v="Falso"
         return v
@@ -117,6 +118,7 @@ class Funciones():
         try:
             self.driver.find_element_by_css_selector(css)
             v = "Existe"
+            time.sleep(1.5)
         except NoSuchElementException:
             v = "Falso"
         return v
@@ -125,6 +127,7 @@ class Funciones():
         try:
             self.driver.find_element_by_class_name(css)
             v = "Existe"
+            time.sleep(1.5)
         except NoSuchElementException:
             v = "Falso"
         return v
@@ -190,18 +193,21 @@ class Funciones():
         val=self.driver.find_element_by_id(id)
         actions = ActionChains(self.driver)
         actions.move_to_element(val).perform()
+        time.sleep(1.5)
         return val
 
     def localizar_elemento_xpath(self,xpath):
         val=self.driver.find_element_by_xpath(xpath)
         actions = ActionChains(self.driver)
         actions.move_to_element(val).perform()
+        time.sleep(1.5)
         return val
 
     def localizar_elemento_css(self, css):
         val = self.driver.find_element_by_class_name(css)
         actions = ActionChains(self.driver)
         actions.move_to_element(val).perform()
+        time.sleep(1.5)
         return val
 
 

@@ -23,9 +23,9 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 19
+ren = 5
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 20
+casos= 6
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -35,6 +35,7 @@ vacunas=10
 ruta="http://10.16.3.29:8003/login"
 ruta2="http://10.16.3.29:8003/consulta-solicitudes"
 #TB20200000025
+#GR20200000046
 
 #cls
 class Sisia(unittest.TestCase):
@@ -110,42 +111,69 @@ class Sisia(unittest.TestCase):
             fa=fa[:10]
             print(fa)
 
+
+            #Boton Detalle solicitud
+            f.localizar_elemento_xpath("//button[contains(@id,'id_detalle_solicitud')]")
+            f.tiempo(1.5)
             f.Click("//button[contains(@id,'id_detalle_solicitud')]")
             f.tiempo(2)
-            f.scrolling(500)
-            bt=f.existe_try("//button[contains(@id,'id_reactivar_solicitud')]")
-            if bt=="Existe":
-                #Reactivar boton
-                f.Click("//button[contains(@id,'id_reactivar_solicitud')]")
-                f.Click("//a[@aria-expanded='false'][contains(.,'Programación de actividades')]")
-                f.tiempo(1)
-                f.Click("//a[contains(@id,'solicitud')]")
-                f.tiempo(1)
-                f.scrolling(200)
-                f.limpiar("//input[contains(@id,'id_folio_solicitud')]")
-                f.tiempo(1)
-                f.texto("//input[contains(@id,'id_folio_solicitud')]", folio)
-                f.tiempo(2)
-                f.Click("//button[contains(@id,'id_buscar_solicitud')]")
-                f.scrolling(300)
-                f.tiempo(1)
-                f.Click("//button[contains(@id,'id_detalle_solicitud')]")
-                f.tiempo(2)
-                f.scrolling(300)
-                #Registrar solicitud
-                f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                f.tiempo(25)
-                driver.implicitly_wait(30)
 
-            elif bt=="Falso":
+            # Boton Edit
+            edit = f.existe_try("//*[@id='id_ir_edicion_solicitud']")
+            print("Edit: " + str(edit))
+            f.tiempo(2)
+            if edit == "Existe":
+                f.localizar_elemento_xpath("//*[@id='id_ir_edicion_solicitud']")
+                f.tiempo(1.5)
+                f.Click("//*[@id='id_ir_edicion_solicitud']")
                 f.tiempo(2)
-                f.scrolling(300)
-                # Registrar solicitud
-                f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
-                f.tiempo(25)
-                driver.implicitly_wait(30)
+                beditar=True
+            elif edit == "Falso":
+                beditar = False
+                #reactivar solicitud
+                #f.localizar_elemento_xpath("//button[contains(@id,'id_reactivar_solicitud')]")
+                f.tiempo(1)
+                bt = f.existe_try("//button[contains(@id,'id_reactivar_solicitud')]")
+                if bt == "Existe":
+                    # Reactivar boton
+                    f.localizar_elemento_xpath("//button[contains(@id,'id_reactivar_solicitud')]")
+                    f.tiempo(1.5)
+                    f.Click("//button[contains(@id,'id_reactivar_solicitud')]")
+                    f.Click("//a[@aria-expanded='false'][contains(.,'Programación de actividades')]")
+                    f.tiempo(1)
+                    f.Click("//a[contains(@id,'solicitud')]")
+                    f.tiempo(1)
+                    f.scrolling(200)
+                    f.limpiar("//input[contains(@id,'id_folio_solicitud')]")
+                    f.tiempo(1)
+                    f.texto("//input[contains(@id,'id_folio_solicitud')]", folio)
+                    f.tiempo(2)
+                    f.Click("//button[contains(@id,'id_buscar_solicitud')]")
+                    f.scrolling(300)
+                    f.tiempo(1)
+                    f.Click("//button[contains(@id,'id_detalle_solicitud')]")
+                    f.tiempo(2)
+                    f.scrolling(300)
+                    # Registrar solicitud
+                    f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
+                    f.tiempo(25)
+                    driver.implicitly_wait(30)
+
+                elif bt == "Falso":
+                    f.tiempo(2)
+                    f.scrolling(300)
+                    # Registrar solicitud
+                    f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
+                    f.tiempo(25)
+                    driver.implicitly_wait(30)
+
+            
 
 
+
+            #Datos de Carga
+            f.tiempo(18)
+            driver.implicitly_wait(20)
             f.scrolling(600)
             f.combo_index("//select[contains(@id,'id_tratamiento')]",1)
             f.tiempo(1.5)
@@ -194,71 +222,93 @@ class Sisia(unittest.TestCase):
 
 
             # Tabla tablaGarrapata
-            f.tiempo(3)
-            driver.implicitly_wait(5)
-            tbl5 = f.existe_try_class_name("tablaGarrapata")
-            Iden = f.localizar_elemento_css("tablaGarrapata")
-            f.tiempo(2)
-            print("Tabla tablaGarrapata" + str(tbl5))
-            if tbl5 == "Existe":
-                tbl5 = f.localizar_elemento("cantidadTable__animales")
-                f.scrolling(20)
-                tbl5 = f.obtenerTexto_id("cantidadTable__animales")
-                # print("Base tabla dos: " +str(tbl2))
+            #si no esta Editando
+            if beditar==False:
+                f.tiempo(3)
+                driver.implicitly_wait(5)
+                tbl5 = f.existe_try_class_name("tablaGarrapata")
+                Iden = f.localizar_elemento_css("tablaGarrapata")
                 f.tiempo(2)
-                tb5 = float(tbl5)
-                ttb5 = tb5 / 15
-                tb1_t5 = str(ttb5).split(".")
-                tb5_entero = int(tb1_t5[0])
-                print("Tabla tablaGarrapata: " + str(tb5_entero))
+                print("Tabla tablaGarrapata" + str(tbl5))
+                if tbl5 == "Existe":
+                    tbl5 = f.localizar_elemento("cantidadTable__animales")
+                    f.scrolling(20)
+                    tbl5 = f.obtenerTexto_id("cantidadTable__animales")
+                    # print("Base tabla dos: " +str(tbl2))
+                    f.tiempo(2)
+                    tb5 = float(tbl5)
+                    ttb5 = tb5 / 15
+                    tb1_t5 = str(ttb5).split(".")
+                    tb5_entero = int(tb1_t5[0])
+                    print("Tabla tablaGarrapata: " + str(tb5_entero))
 
-                # segunda tabla
-                #for r in range(1, tb5_entero+1):
-                for r in range(1, nf):
-                    # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
-                    f.Click("//li[contains(@id,'tablaGarrapata__paginador__page"+str(r)+"')]")
-                    f.scrolling(-750)
-                    f.tiempo(1)
+                    # segunda tabla
+                    #for r in range(1, tb5_entero+1):
+                    for r in range(1, nf):
+                        # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
+                        f.Click("//li[contains(@id,'tablaGarrapata__paginador__page"+str(r)+"')]")
+                        f.scrolling(-750)
+                        f.tiempo(1)
 
-                    # for ch in range(0,15):
-                    Iden = f.localizar_elemento_css("tablaGarrapata")
-                    print("identificado" + str(Iden))
-                    for ch in range(0, 15):
-                        raz = random.randint(1, 6)
-                        vacc = random.randint(1, 3)
-                        # print("chec: " + str(ch))
-                        f.scrolling(50)
-                        f.Click("//input[contains(@id,'id_check_tablaGarrapata__"+str(ch)+"')]")
-                        f.combo_index("//select[@id='id_raza_tablaGarrapata__"+str(ch)+"']", str(raz))
-                        f.combo_index("//select[@id='id_producto_tablaGarrapata__"+str(ch)+"']", 1)
+                        # for ch in range(0,15):
+                        Iden = f.localizar_elemento_css("tablaGarrapata")
+                        print("identificado" + str(Iden))
+                        for ch in range(0, 15):
+                            raz = random.randint(1, 6)
+                            vacc = random.randint(1, 3)
+                            # print("chec: " + str(ch))
+                            f.scrolling(50)
+                            f.Click("//input[contains(@id,'id_check_tablaGarrapata__"+str(ch)+"')]")
+                            f.combo_index("//select[@id='id_raza_tablaGarrapata__"+str(ch)+"']", str(raz))
+                            f.combo_index("//select[@id='id_producto_tablaGarrapata__"+str(ch)+"']", 1)
+
+            #Boton Actualizar
+            bactualizar=f.existe_try("//span[contains(.,'Actualizar')]")
+            if bactualizar=="Existe":
+                f.localizar_elemento_xpath("//span[contains(.,'Actualizar')]")
+                f.tiempo(2)
+                f.Click("//span[contains(.,'Actualizar')]")
+                f.tiempo(2)
+                f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+                f.tiempo(2)
+                f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+
 
 
 
             #Firma
             f.tiempo(2)
-            f.Click("//span[contains(.,'Firmar')]")
-            f.tiempo(2)
-            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
-            f.tiempo(2)
-            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
-            f.tiempo(2)
-            f.Click("//a[contains(@id,'dictamen')]")
-            f.tiempo(2)
-            f.scrolling(200)
-            f.texto("//input[contains(@id,'solicitud')]",folio)
-            f.tiempo(1)
-            f.Click("//button[contains(@id,'dictamen')]")
-            f.tiempo(1)
-            f.scrolling(200)
-            #detalle
-            f.Click("//button[@id='id_detalle_dictamen']")
-            f.tiempo(3)
-            f.scrolling(1200)
-            f.Click("//button[contains(@id,'id_descargar_dictamen')]")
-            f.tiempo(7)
+            bfirma=f.existe_try("//span[contains(.,'Firmar')]")
+            if bfirma=="Existe":
+                f.localizar_elemento_xpath("//span[contains(.,'Firmar')]")
+                f.tiempo(1)
+                f.Click("//span[contains(.,'Firmar')]")
+                f.tiempo(2)
+                f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+                f.tiempo(2)
+                f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+                f.tiempo(2)
+                '''
+                f.Click("//a[contains(@id,'dictamen')]")
+                f.tiempo(2)
+                f.scrolling(200)
+                f.texto("//input[contains(@id,'solicitud')]",folio)
+                f.tiempo(1)
+                f.Click("//button[contains(@id,'dictamen')]")
+                f.tiempo(1)
+                f.scrolling(200)
+                #detalle
+                f.Click("//button[@id='id_detalle_dictamen']")
+                f.tiempo(3)
+                f.scrolling(1200)
+                f.Click("//button[contains(@id,'id_descargar_dictamen')]")
+                f.tiempo(7)
+                '''
 
 
             #salir
+            #Regresar a la tabla base
+            hoja = "garra"
             f.scrolling(-1700)
             f.localizar_elemento_xpath("//a[contains(.,'Salir')]")
             f.tiempo(2)
@@ -267,9 +317,9 @@ class Sisia(unittest.TestCase):
 
 
 
-                #final
-                #if (r == casos):
-                 #   break
+            #final
+            if (r == casos):
+                break
 
 
 
