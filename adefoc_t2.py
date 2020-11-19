@@ -23,13 +23,14 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 5
+ren = 6
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 1
+casos= 7
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
+nf=2
 vacunas=10
+
 
 
 ruta="http://10.16.3.29:8003/login"
@@ -65,13 +66,13 @@ class Sisia(unittest.TestCase):
         path = excel
         hoja = "registro"
         rows = fe.getRowCount(path, hoja)
-        for r in range(ren, rows + 1):
-            user = fe.readData(path, hoja, r, 1)
-            passw = fe.readData(path, hoja, r, 2)
-            clave = fe.readData(path, hoja, r, 6)
-            solicitud=fe.readData(path, hoja, r,8)
-            especie=fe.readData(path, hoja, r,9)
-            zoo=fe.readData(path, hoja, r,10)
+        for r1 in range(ren, rows):
+            user = fe.readData(path, hoja, r1, 1)
+            passw = fe.readData(path, hoja, r1, 2)
+            clave = fe.readData(path, hoja, r1, 6)
+            solicitud=fe.readData(path, hoja, r1,8)
+            especie=fe.readData(path, hoja, r1,9)
+            zoo=fe.readData(path, hoja, r1,10)
 
 
 
@@ -107,8 +108,8 @@ class Sisia(unittest.TestCase):
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
             f.tiempo(2)
             f.combo_index("//select[contains(@id,'especie')]",especie)
-            f.tiempo(65)
-            driver.implicitly_wait(65)
+            f.tiempo(18)
+            driver.implicitly_wait(18)
             #f.combo_index("//select[contains(@id,'zootecnica')]",zoo)
             f.combo_index("//*[@id='id_funcion_zootecnica']",zoo)
             f.tiempo(1.5)
@@ -172,6 +173,11 @@ class Sisia(unittest.TestCase):
 
 
 
+            #fecha expedicion
+            f.localizar_elemento_xpath("//input[contains(@id,'id_fecha_expedicion')]")
+            f.tiempo(1)
+            f.texto("//input[contains(@id,'id_fecha_expedicion')]",fecha1)
+            f.tiempo(4)
 
 
             #Vacunación
@@ -180,11 +186,11 @@ class Sisia(unittest.TestCase):
             renv=1
             casosv=vacunas
             rows2 = fe.getRowCount(path, hoja)
-            for r in range(renv, rows2 + 1):
-                vacuna = fe.readData(path, hoja, r, 1)
-                Labora = fe.readData(path, hoja, r, 2)
-                lote = fe.readData(path, hoja, r, 3)
-                laboratorio = fe.readData(path, hoja, r, 4)
+            for r2 in range(renv, rows2):
+                vacuna = fe.readData(path, hoja, r2, 1)
+                Labora = fe.readData(path, hoja, r2, 2)
+                lote = fe.readData(path, hoja, r2, 3)
+                laboratorio = fe.readData(path, hoja, r2, 4)
 
                 f.tiempo(1)
                 #f.combo_index("//select[contains(@id,'vacuna')]",vacuna)
@@ -201,14 +207,15 @@ class Sisia(unittest.TestCase):
                 #f.tiempo(.5)
                 f.Click("//*[@id='id_agregar_vacuna']")
                 #f.tiempo(.5)
-                if (r == casosv):
+                if r2 == casosv:
                     break
+
 
 
 
             # Tabla tablaVBrucelosis
             f.scrolling(750)
-            f.tiempo(10)
+            f.tiempo(2)
             driver.implicitly_wait(10)
             tbl5 = f.existe_try_class_name("tablaVBrucelosis")
             Iden = f.localizar_elemento_css("tablaVBrucelosis")
@@ -227,9 +234,9 @@ class Sisia(unittest.TestCase):
 
                 # segunda tabla
                 # for r in range(1, tb4_entero+1):
-                for r in range(1, nf):
+                for r3 in range(1, nf):
                     # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
-                    f.Click("//span[@id='tablaVBrucelosis__paginador__span__"+str(r)+"']")
+                    f.Click("//span[@id='tablaVBrucelosis__paginador__span__"+str(r3)+"']")
                     f.scrolling(-750)
                     f.tiempo(1)
 
@@ -240,17 +247,38 @@ class Sisia(unittest.TestCase):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         # print("chec: " + str(ch))
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.Click("//input[contains(@id,'id_check_tablaVBrucelosis__"+str(ch)+"')]")
                         f.combo_index("//select[@id='id_raza_tablaVBrucelosis__"+str(ch)+"']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_tablaVBrucelosis__"+str(ch)+"']", str(vacc))
+            
+           
+            #Firmar
+            f.localizar_elemento_xpath("//span[contains(.,'Firmar')]")
+            f.tiempo(1)
+            f.Click("//span[contains(.,'Firmar')]")
+            f.tiempo(1)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+            f.tiempo(2)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+            f.tiempo(1)
 
 
+
+
+
+            # salir
+            #Cambiar la hoja muy importante
+            hoja = "registro"
+            f.localizar_elemento_xpath("//a[@class='pull-right'][contains(.,'Salir')]")
+            f.tiempo(2)
+            f.Click("//a[@class='pull-right'][contains(.,'Salir')]")
+            f.tiempo(4)
 
 
 
             #final
-            if (r == casos):
+            if r1 == casos:
                 break
 
 

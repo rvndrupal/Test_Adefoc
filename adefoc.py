@@ -25,11 +25,11 @@ import string
 
 ren = 4
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 1
+casos= 2
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
-vacunas=25
+nf=2
+vacunas=10
 
 
 ruta="http://10.16.3.29:8003/login"
@@ -63,7 +63,7 @@ class Sisia(unittest.TestCase):
         path = excel
         hoja = "registro"
         rows = fe.getRowCount(path, hoja)
-        for r in range(ren, rows + 1):
+        for r in range(ren, rows):
             user = fe.readData(path, hoja, r, 1)
             passw = fe.readData(path, hoja, r, 2)
             clave = fe.readData(path, hoja, r, 6)
@@ -142,7 +142,7 @@ class Sisia(unittest.TestCase):
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")      #se activa para directo programacion de actividades
             f.tiempo(5)
             f.Click("//a[contains(@id,'solicitud')][contains(.,'Mis solicitudes')]")
-            f.scrolling(600)
+            f.scrolling(300)
             f.tiempo(2)
             #f.texto("//input[contains(@id,'solicitud')]",clave)
             f.texto("//input[contains(@id,'solicitud')]",clave)
@@ -153,8 +153,8 @@ class Sisia(unittest.TestCase):
             f.scrolling(190)
             f.tiempo(2)
             f.Click("//*[@id='id_detalle_solicitud']")
-            f.scrolling(450)
-            f.tiempo(2)
+            f.scrolling(350)
+            f.tiempo(4)
             f.Click("//button[contains(@id,'id_ir_registro_solicitud')]")
             driver.implicitly_wait(20)
             f.scrolling(1000)
@@ -230,7 +230,7 @@ class Sisia(unittest.TestCase):
                     raz = random.randint(1, 6)
                     vacc = random.randint(1, 8)
                     #print("chec: "+str(ch))
-                    f.scrolling(30)
+                    f.scrolling(50)
                     f.Click("//input[@id='id_check_tablaAntirrabica__"+str(ch)+"']")
                     f.combo_index("//select[@id='id_raza_tablaAntirrabica__"+str(ch)+"']",str(raz))
                     f.combo_index("//select[@id='id_vacuna_tablaAntirrabica__"+str(ch)+"']",str(vacc))
@@ -265,7 +265,7 @@ class Sisia(unittest.TestCase):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         #print("chec: " + str(ch))
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.Click("//input[@id='id_check_BOVINO__"+str(ch)+"']")
                         f.combo_index("//select[@id='id_raza_BOVINO__"+ str(ch) +"']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_BOVINO__"+str(ch)+"']", str(vacc))
@@ -301,16 +301,17 @@ class Sisia(unittest.TestCase):
                         vacc = random.randint(1, 8)
                         #print("chec: " + str(ch))
                         f.Click("//input[@id='id_check_OVINO__"+str(ch)+"']")
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.combo_index("//select[@id='id_raza_OVINO__" + str(ch) + "']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_OVINO__" + str(ch) + "']", str(vacc))
 
 
-            '''
+
             # Tabla tablaCAPRINO
-            f.scrolling(750)
-            f.tiempo(1)
+
             tbl4 = f.existe_try_class_name("tablaCAPRINO")
+            #f.scrolling(750)
+            #f.tiempo(1)
 
             f.tiempo(2)
             print("Tabla caprino" +str(tbl4))
@@ -342,16 +343,18 @@ class Sisia(unittest.TestCase):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 8)
                         # print("chec: " + str(ch))
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.tiempo(10)
                         f.Click("//input[contains(@id,'tablaAnimalExtra__0__check__"+str(ch)+"')]")
                         f.combo_index("//select[@id='id_raza_CAPRINO__"+str(ch)+"']", str(raz))
                         f.combo_index("//select[@id='id_vacuna_CAPRINO__"+str(ch)+"']", str(vacc))
-            '''
+
 
 
 
             #Nuevos Registros
+            reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
+            f.tiempo(2)
             reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
             f.scrolling(30)
             f.tiempo(2)
@@ -391,6 +394,20 @@ class Sisia(unittest.TestCase):
             f.combo_index("//select[@id='id_vacuna_animalExtra_0']",1)
             f.tiempo(.6)
             f.combo_index("//select[@id='id_vacuna_animalExtra_1']",2)
+            f.tiempo(4)
+
+            #firmar
+            f.Click("//button[contains(@id,'id_firmar_actualizar')]")
+            f.tiempo(3)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+            f.tiempo(2)
+            f.Click("//button[@type='button'][contains(.,'Aceptar')]")
+
+
+            #salir
+            f.localizar_elemento_xpath("//a[@class='pull-right'][contains(.,'Salir')]")
+            f.tiempo(2)
+            f.Click("//a[@class='pull-right'][contains(.,'Salir')]")
             f.tiempo(4)
 
             #final
