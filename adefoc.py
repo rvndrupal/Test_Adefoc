@@ -25,7 +25,7 @@ import string
 
 ren = 4
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 2
+casos= 5
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -145,6 +145,8 @@ class Sisia(unittest.TestCase):
             f.scrolling(300)
             f.tiempo(2)
             #f.texto("//input[contains(@id,'solicitud')]",clave)
+            f.limpiar("//input[contains(@id,'solicitud')]")
+            f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
             f.tiempo(2)
             f.scrolling(130)
@@ -166,10 +168,10 @@ class Sisia(unittest.TestCase):
             renv=1
             casosv=vacunas
             rows2 = fe.getRowCount(path, hoja)
-            for r in range(renv, rows2 + 1):
-                vacuna = fe.readData(path, hoja, r, 1)
-                Labora = fe.readData(path, hoja, r, 2)
-                lote = fe.readData(path, hoja, r, 3)
+            for rv in range(renv, rows2 + 1):
+                vacuna = fe.readData(path, hoja, rv, 1)
+                Labora = fe.readData(path, hoja, rv, 2)
+                lote = fe.readData(path, hoja, rv, 3)
                 f.tiempo(.1)
                 f.combo_index("//select[contains(@id,'vacuna')]",vacuna)
                 f.texto("//input[contains(@id,'laboratorio')]",Labora)
@@ -177,7 +179,7 @@ class Sisia(unittest.TestCase):
                 f.texto("//input[contains(@id,'caducidad')]",fecha1)
                 f.Click("//*[@id='id_agregar_vacuna']")
                 f.tiempo(.1)
-                if (r == casosv):
+                if (rv == casosv):
                     break
             f.scrolling(450)
             f.tiempo(2)
@@ -219,8 +221,8 @@ class Sisia(unittest.TestCase):
             #print("Tabla: "+ str(tb1))
 
             #for r in range(1, tb1_entero+1):
-            for r in range(1, nf):
-                f.Click("//span[@id='tablaAntirrabica__paginador__span__"+str(r)+"']")
+            for rt1 in range(1, nf):
+                f.Click("//span[@id='tablaAntirrabica__paginador__span__"+str(rt1)+"']")
                 f.scrolling(-410)
                 f.tiempo(1)
 
@@ -254,8 +256,8 @@ class Sisia(unittest.TestCase):
 
                 #segunda tabla
                 #for r in range(1, tb2_entero+1):
-                for r in range(1, nf):
-                    f.Click("//span[contains(@id,'tablaAnimalExtra__0__paginador__span__" + str(r) + "')]")
+                for rt2 in range(1, nf):
+                    f.Click("//span[contains(@id,'tablaAnimalExtra__0__paginador__span__" + str(rt2) + "')]")
                     f.scrolling(-420)
                     f.tiempo(1)
 
@@ -289,8 +291,8 @@ class Sisia(unittest.TestCase):
 
                 # Tercera tabla
                 # for r in range(1, tb3_entero+1):
-                for r in range(1, nf):
-                    f.Click("//span[contains(@id,'tablaAnimalExtra__1__paginador__span__" + str(r) + "')]")
+                for rt3 in range(1, nf):
+                    f.Click("//span[contains(@id,'tablaAnimalExtra__1__paginador__span__" + str(rt3) + "')]")
                     f.scrolling(-500)
                     f.tiempo(1)
 
@@ -329,9 +331,9 @@ class Sisia(unittest.TestCase):
 
                 # TABLA CAPRINO
                 # for r in range(1, tb4_entero+1):
-                for r in range(1, nf):
+                for rt4 in range(1, nf):
                     #f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+ str(r)+"')]")
-                    f.Click(" // *[ @ id = 'tablaAnimalExtra__1__paginador__span__"+ str(r)+"']")
+                    f.Click(" // *[ @ id = 'tablaAnimalExtra__1__paginador__span__"+ str(rt4)+"']")
                     f.scrolling(-800)
                     f.tiempo(1)
 
@@ -353,6 +355,7 @@ class Sisia(unittest.TestCase):
 
 
             #Nuevos Registros
+            driver.implicitly_wait(3)
             reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
             f.tiempo(2)
             reg=f.localizar_elemento_xpath("//label[contains(.,'Registrar animales adicionales')]")
@@ -405,6 +408,7 @@ class Sisia(unittest.TestCase):
 
 
             #salir
+            hoja = "registro"
             f.localizar_elemento_xpath("//a[@class='pull-right'][contains(.,'Salir')]")
             f.tiempo(2)
             f.Click("//a[@class='pull-right'][contains(.,'Salir')]")

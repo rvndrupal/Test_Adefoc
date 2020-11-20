@@ -24,7 +24,7 @@ import string
 
 ren = 4
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 1
+casos= 4
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 
@@ -57,7 +57,7 @@ class Sisia(unittest.TestCase):
         path = excel
         hoja = "registro"
         rows = fe.getRowCount(path, hoja)
-        for r in range(ren, rows + 1):
+        for r in range(ren, rows):
             user = fe.readData(path, hoja, r, 1)
             passw = fe.readData(path, hoja, r, 2)
             clave = fe.readData(path, hoja, r, 6)
@@ -149,18 +149,6 @@ class Sisia(unittest.TestCase):
                 f.texto("//input[contains(@id,'caducidad')]",fecha1)
                 f.Click("//*[@id='id_agregar_vacuna']")
                 f.tiempo(.3)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
