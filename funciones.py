@@ -49,6 +49,13 @@ class Funciones():
         self.driver.save_screenshot("C://SELENIUM//Page_objects//IMAGENES//Combo_index" + str(r) + ".png")
         return ct
 
+    def combo_texto(self, xpath, texto):
+        r = random.randint(1, 1000)
+        ct = Select(self.driver.find_element_by_xpath(xpath))
+        ct.select_by_visible_text(texto)
+        self.driver.save_screenshot("C://SELENIUM//Page_objects//IMAGENES//Combo_index" + str(r) + ".png")
+        return ct
+
     def check(self, xpath):
         r = random.randint(1, 1000)
         ck = self.driver.find_element_by_xpath(xpath).click()

@@ -25,7 +25,7 @@ import string
 
 ren = 10
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 10
+casos= 11
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -44,7 +44,7 @@ class Sisia(unittest.TestCase):
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(executable_path="C:\chromedriver.exe")
         cls.driver.maximize_window()
-        cls.driver.implicitly_wait(8)
+        cls.driver.implicitly_wait(20)
 
     # @unittest.skip("Para pruebas de datos")
     # Primero
@@ -74,6 +74,10 @@ class Sisia(unittest.TestCase):
             #fecha1 = datetime.now() + timedelta(days=7)
             fecha1 = fecha1.strftime('%d/%m/%Y')
 
+            fechalec = datetime.now()
+            fechalec = datetime.now() + timedelta(days=7)
+            fechalec = fechalec.strftime('%d/%m/%Y')
+
             # Login
             f.scrolling("100")
             f.tiempo(1)
@@ -98,15 +102,17 @@ class Sisia(unittest.TestCase):
             f.tiempo(2)
             #vs=f.combo_index_existe("//select[contains(@id,'id_tipo_solicitud')]")
             #print(vs)
+            f.localizar_elemento_xpath("//select[contains(@id,'id_tipo_solicitud')]")
+            f.tiempo(1)
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
             f.tiempo(2)
-            #Motico de Prueba
-            f.combo_index("//select[contains(@id,'id_motivo_prueba')]",5)
+            #Motivo de Prueba
+            f.combo_texto("//select[contains(@id,'id_motivo_prueba')]","BARRIDO")
             f.tiempo(2)
             #Especie
             f.combo_index("//select[contains(@id,'especie')]",1)
-            f.tiempo(3)
-            driver.implicitly_wait(3)
+            f.tiempo(4)
+            driver.implicitly_wait(4)
             #f.combo_index("//select[contains(@id,'zootecnica')]",zoo)
             f.combo_index("//*[@id='id_funcion_zootecnica']",zoo)
             f.tiempo(1.5)
@@ -141,6 +147,8 @@ class Sisia(unittest.TestCase):
             f.Click("//*[@id='id_ir_consulta_solicitud']")
             f.scrolling(400)
             f.tiempo(1)
+            f.limpiar("//input[contains(@id,'solicitud')]")
+            f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
             #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000075")
             f.tiempo(3)
@@ -173,21 +181,18 @@ class Sisia(unittest.TestCase):
             f.tiempo(1)
             #f.texto("//input[@id='id_fecha_inyeccion']",fecha1)
             f.texto("//input[contains(@id,'id_hora_inyeccion')]","18:08:35")
-            f.tiempo(3)
-            f.tab("//input[contains(@id,'id_hora_inyeccion')]")
-            f.tab("//input[contains(@id,'id_hora_inyeccion')]")
-            f.texto("//input[contains(@id,'id_hora_inyeccion')]", "p")
-
             f.tiempo(1)
             f.texto("//input[contains(@id,'id_fecha_lectura')]",fecha1)
             f.tiempo(1)
-            f.texto("//input[contains(@id,'id_hora_lectura')]","19:09:37 p")
-            f.tiempo(50)
+            f.texto("//input[contains(@id,'id_hora_inyeccion')]", "p")
+            f.tiempo(1)
+            f.texto("//input[contains(@id,'id_hora_lectura')]","19:09:37")
+            f.limpiar("//input[contains(@id,'id_fecha_lectura')]")
+            f.texto("//input[contains(@id,'id_hora_lectura')]", "p")
+            f.texto("//input[contains(@id,'id_fecha_lectura')]", fechalec)
+            f.tiempo(1)
 
 
-
-
-            '''
 
             # Tabla tablaDTuberculosis
             f.scrolling(750)
@@ -237,8 +242,8 @@ class Sisia(unittest.TestCase):
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
             f.tiempo(2)
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
-            f.tiempo(50)
-            
+            f.tiempo(2)
+            '''
             f.Click("//a[contains(@id,'dictamen')]")
             f.tiempo(2)
             f.scrolling(200)
@@ -253,6 +258,7 @@ class Sisia(unittest.TestCase):
             f.scrolling(1200)
             f.Click("//button[contains(@id,'id_descargar_dictamen')]")
             f.tiempo(4)
+            '''
             
 
             # salir
@@ -267,7 +273,7 @@ class Sisia(unittest.TestCase):
             #final
             if (r == casos):
                 break
-            '''
+
 
 
     @classmethod
