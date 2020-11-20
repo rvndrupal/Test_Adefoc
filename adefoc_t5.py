@@ -23,18 +23,18 @@ import string
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 7
+ren = 10
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 1
+casos= 10
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
-nf=3
+nf=2
 vacunas=10
 
 
 ruta="http://10.16.3.29:8003/login"
 ruta2="http://10.16.3.29:8003/consulta-solicitudes"
-#TB20200000025
+#TB20200000049
 
 #cls
 class Sisia(unittest.TestCase):
@@ -171,16 +171,23 @@ class Sisia(unittest.TestCase):
 
             #dictamen de prueba de Tuberculosis.
             f.tiempo(1)
-            f.texto("//input[@id='id_fecha_inyeccion']",fecha1)
+            #f.texto("//input[@id='id_fecha_inyeccion']",fecha1)
             f.texto("//input[contains(@id,'id_hora_inyeccion')]","18:08:35")
+            f.tiempo(3)
+            f.tab("//input[contains(@id,'id_hora_inyeccion')]")
+            f.tab("//input[contains(@id,'id_hora_inyeccion')]")
+            f.texto("//input[contains(@id,'id_hora_inyeccion')]", "p")
+
             f.tiempo(1)
-            f.texto("//input[contains(@id,'id_hora_lectura')]","19:09:37")
+            f.texto("//input[contains(@id,'id_fecha_lectura')]",fecha1)
             f.tiempo(1)
+            f.texto("//input[contains(@id,'id_hora_lectura')]","19:09:37 p")
+            f.tiempo(50)
 
 
 
 
-
+            '''
 
             # Tabla tablaDTuberculosis
             f.scrolling(750)
@@ -204,9 +211,9 @@ class Sisia(unittest.TestCase):
 
                 # segunda tabla
                 #for r in range(1, tb5_entero+1):
-                for r in range(1, nf):
+                for rt in range(1, nf):
                     # f.Click("//span[@id='tablaAnimalExtra__1__paginador__span__']"+str(r)+"')]")
-                    f.Click("//li[contains(@id,'tablaDTuberculosis__paginador__page"+str(r)+"')]")
+                    f.Click("//li[contains(@id,'tablaDTuberculosis__paginador__page"+str(rt)+"')]")
                     f.scrolling(-750)
                     f.tiempo(1)
 
@@ -217,7 +224,7 @@ class Sisia(unittest.TestCase):
                         raz = random.randint(1, 6)
                         vacc = random.randint(1, 3)
                         # print("chec: " + str(ch))
-                        f.scrolling(30)
+                        f.scrolling(50)
                         f.Click("//input[contains(@id,'id_check_tablaDTuberculosis__"+str(ch)+"')]")
                         f.combo_index("//select[contains(@id,'id_raza_tablaDTuberculosis__"+str(ch)+"')]", str(raz))
                         f.combo_index("//select[contains(@id,'id_origen_tablaDTuberculosis__"+str(ch)+"')]", str(vacc))
@@ -230,7 +237,8 @@ class Sisia(unittest.TestCase):
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
             f.tiempo(2)
             f.Click("//button[@type='button'][contains(.,'Aceptar')]")
-            f.tiempo(2)
+            f.tiempo(50)
+            
             f.Click("//a[contains(@id,'dictamen')]")
             f.tiempo(2)
             f.scrolling(200)
@@ -245,14 +253,21 @@ class Sisia(unittest.TestCase):
             f.scrolling(1200)
             f.Click("//button[contains(@id,'id_descargar_dictamen')]")
             f.tiempo(4)
+            
 
-
-
+            # salir
+            # Regresar a la tabla base
+            hoja = "registro"
+            f.scrolling(-1700)
+            f.localizar_elemento_xpath("//a[contains(.,'Salir')]")
+            f.tiempo(2)
+            f.Click("//a[contains(.,'Salir')]")
+            f.tiempo(2)
 
             #final
             if (r == casos):
                 break
-
+            '''
 
 
     @classmethod
