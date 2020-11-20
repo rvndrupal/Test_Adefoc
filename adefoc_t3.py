@@ -25,7 +25,7 @@ import string
 
 ren = 6
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 6
+casos= 7
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -59,20 +59,20 @@ class Sisia(unittest.TestCase):
         path = excel
         hoja = "garra"
         rows = fe.getRowCount(path, hoja)
-        for r in range(ren, rows):
-            user = fe.readData(path, hoja, r, 1)
-            passw = fe.readData(path, hoja, r, 2)
-            folio = fe.readData(path, hoja, r, 3)
-            estado = fe.readData(path, hoja, r, 4)
-            municipio = fe.readData(path, hoja, r, 5)
-            localidad = fe.readData(path, hoja, r, 6)
-            Observacion = fe.readData(path, hoja, r, 7)
-            Carro = fe.readData(path, hoja, r, 8)
-            Marca = fe.readData(path, hoja, r, 9)
-            Placas = fe.readData(path, hoja, r, 10)
-            Capacidad = fe.readData(path, hoja, r, 11)
-            Flejado = fe.readData(path, hoja, r, 12)
-            Producto = fe.readData(path, hoja, r, 13)
+        for rb in range(ren, rows):
+            user = fe.readData(path, hoja, rb, 1)
+            passw = fe.readData(path, hoja, rb, 2)
+            folio = fe.readData(path, hoja, rb, 3)
+            estado = fe.readData(path, hoja, rb, 4)
+            municipio = fe.readData(path, hoja, rb, 5)
+            localidad = fe.readData(path, hoja, rb, 6)
+            Observacion = fe.readData(path, hoja, rb, 7)
+            Carro = fe.readData(path, hoja, rb, 8)
+            Marca = fe.readData(path, hoja, rb, 9)
+            Placas = fe.readData(path, hoja, rb, 10)
+            Capacidad = fe.readData(path, hoja, rb, 11)
+            Flejado = fe.readData(path, hoja, rb, 12)
+            Producto = fe.readData(path, hoja, rb, 13)
 
 
 
@@ -184,6 +184,8 @@ class Sisia(unittest.TestCase):
             f.limpiar("//input[contains(@id,'id_localidad')]")
             f.texto("//input[contains(@id,'id_localidad')]",localidad)
             f.texto("//input[contains(@id,'fechaInicio2')]",fa)
+            f.limpiar("//input[@id='id_observaciones']")
+            f.tiempo(1)
             f.texto("//input[@id='id_observaciones']",Observacion)
             est = random.randint(1, 8)
             f.tiempo(6)
@@ -203,6 +205,8 @@ class Sisia(unittest.TestCase):
             f.combo_index("//select[contains(@id,'id_estado_ruta')]",est)
             f.tiempo(1.5)
             f.combo_index("//select[contains(@id,'id_municipio_ruta')]",est)
+            f.limpiar("//input[contains(@id,'id_detalle_ruta')]")
+            f.tiempo(1)
             f.texto("//input[contains(@id,'id_detalle_ruta')]",Observacion)
             f.Click("//button[contains(@id,'id_agregar_ruta')]")
             f.tiempo(2)
@@ -318,7 +322,7 @@ class Sisia(unittest.TestCase):
 
 
             #final
-            if (r == casos):
+            if (rb == casos):
                 break
 
 

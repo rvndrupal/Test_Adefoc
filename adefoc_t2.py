@@ -43,6 +43,9 @@ ruta2="http://10.16.3.29:8003/consulta-solicitudes"
 #VBR202000000044
 #VBR20200000045
 #VBR20200000050
+#Claves  180155787001
+#Claves  320571043080
+
 
 #cls
 class Sisia(unittest.TestCase):
@@ -96,7 +99,8 @@ class Sisia(unittest.TestCase):
             f.limpiar("//input[contains(@id,'unidad')]")
             f.tiempo(3)
 
-
+            f.limpiar("//input[contains(@id,'unidad')]")
+            f.tiempo(1)
             f.texto("//input[contains(@id,'unidad')]", clave)
             f.tiempo(1)
             f.Click("//button[contains(@id,'id_buscar_unidad')]")
@@ -143,6 +147,8 @@ class Sisia(unittest.TestCase):
             f.Click("//*[@id='subenlaces']/ul/li[2]/a")
             f.Click("//*[@id='id_ir_consulta_solicitud']")
             f.scrolling(900)
+            f.tiempo(1)
+            f.limpiar("//input[contains(@id,'solicitud')]")
             f.tiempo(1)
             f.texto("//input[contains(@id,'solicitud')]",clave)
             #f.texto("//input[contains(@id,'solicitud')]", "VBR20200000075")

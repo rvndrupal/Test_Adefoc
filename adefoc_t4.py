@@ -100,8 +100,8 @@ class Sisia(unittest.TestCase):
             #print(vs)
             f.combo_index("//select[contains(@id,'id_tipo_solicitud')]",solicitud)
             f.tiempo(2)
-            #Motico de Prueba
-            f.combo_index("//select[contains(@id,'id_motivo_prueba')]",7)
+            #Motivo de Prueba
+            f.combo_texto("//select[contains(@id,'id_motivo_prueba')]", "BARRIDO")
             f.tiempo(2)
             #Especie
             f.combo_index("//select[contains(@id,'especie')]",3)
