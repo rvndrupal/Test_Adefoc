@@ -25,7 +25,7 @@ import string
 
 ren = 4
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 5
+casos= 4
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -210,7 +210,7 @@ class Sisia(unittest.TestCase):
 
             #Tablas
             tbl2=f.existe_try_class_name("tablaAntirrabica")
-            tbl1 =f.localizar_elemento("cantidadTable__animales")
+            tbl1 =f.localizar_elemento_id("cantidadTable__animales")
             f.tiempo(1)
             tb1=f.obtenerTexto_id("cantidadTable__animales")
             tb1=float(tb1)
@@ -244,7 +244,7 @@ class Sisia(unittest.TestCase):
             f.scrolling(750)
             tbl2=f.existe_try_class_name("tabla_BOVINO")
             if tbl2 == "Existe":
-                tbl2 = f.localizar_elemento("cantidadTable__BOVINO")
+                tbl2 = f.localizar_elemento_id("cantidadTable__BOVINO")
                 tbl2 = f.obtenerTexto_id("cantidadTable__BOVINO")
                 #print("Base tabla dos: " +str(tbl2))
                 f.tiempo(2)
@@ -279,7 +279,7 @@ class Sisia(unittest.TestCase):
             f.scrolling(750)
             tbl3 = f.existe_try_class_name("tabla_OVINO")
             if tbl3 == "Existe":
-                tbl3 = f.localizar_elemento("cantidadTable__OVINO")
+                tbl3 = f.localizar_elemento_id("cantidadTable__OVINO")
                 tbl3 = f.obtenerTexto_id("cantidadTable__OVINO")
                 #print("Base tabla tres: " + str(tbl3))
                 f.tiempo(2)
@@ -318,7 +318,7 @@ class Sisia(unittest.TestCase):
             f.tiempo(2)
             print("Tabla caprino" +str(tbl4))
             if tbl4 == "Existe":
-                tbl4 = f.localizar_elemento("cantidadTable__CAPRINO")
+                tbl4 = f.localizar_elemento_id("cantidadTable__CAPRINO")
                 tbl4 = f.obtenerTexto_id("cantidadTable__CAPRINO")
                 #Iden = f.localizar_elemento_css("tablaCAPRINO")
                 # print("Base tabla dos: " +str(tbl2))

@@ -18,14 +18,14 @@ import string
 
 
 #
-#pytest -v -s --html=report.html --self-contained-html adefoc.py
+#pytest -v -s --html=report_t3.html --self-contained-html adefoc_t3.py
 
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py  page3_6.py page3_7.py page3_8.py page3_9.py page3_10.py page3_11.py page3_12.py page3_13.py page3_14.py -n 14
 #pytest page3.py  page3_2.py  page3_3.py  page3_4.py  page3_5.py -n 5
 
-ren = 6
+ren = 20
 excel="C://ADEFOC//Documentos//EXCEL_PRUE.xlsx"
-casos= 7
+casos= 20
 #pytest -v -s --alluredir="C:\SISIA\reportes_allure"  page3.py
 #allure serve C:\SISIA\reportes_allure
 nf=2
@@ -235,7 +235,7 @@ class Sisia(unittest.TestCase):
                 f.tiempo(2)
                 print("Tabla tablaGarrapata" + str(tbl5))
                 if tbl5 == "Existe":
-                    tbl5 = f.localizar_elemento("cantidadTable__animales")
+                    tbl5 = f.localizar_elemento_id("cantidadTable__animales")
                     f.scrolling(20)
                     tbl5 = f.obtenerTexto_id("cantidadTable__animales")
                     # print("Base tabla dos: " +str(tbl2))
